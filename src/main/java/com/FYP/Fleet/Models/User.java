@@ -1,19 +1,18 @@
 package com.FYP.Fleet.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "User")
-@Builder
 @NoArgsConstructor
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 public class User {
 
