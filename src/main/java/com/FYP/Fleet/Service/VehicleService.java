@@ -15,33 +15,31 @@ public class VehicleService {
 
     private final VehicleRepository vehicleRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    VehicleService(VehicleRepository vehicleRepository, UserRepository userRepository){
+    VehicleService(VehicleRepository vehicleRepository, UserRepository userRepository, UserService userService){
         this.vehicleRepository = vehicleRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
-    public Vehicle createVehicle(VehicleDto vehicleDto){
+    public Vehicle createVehicle(VehicleDto vehicleDto) throws Exception{
+        User user = userService.getUserById(vehicleDto.getUserId());
         Vehicle createVehicle = Vehicle.builder()
                 .number(vehicleDto.getNumber())
-                .user(vehicleDto.getUser())
+                .user(user)
                 .build();
 
-        Optional<User> user = userRepository.findById(vehicleDto.getUser().getId());
-        if(user.isEmpty()){
-            throw new RuntimeException("No User Exist with id : " + vehicleDto.getUser().getId());
-        }
-
         createVehicle = vehicleRepository.save(createVehicle);
-        vehicleDto.getUser().getVehicleList().add(createVehicle);
-        userRepository.save(vehicleDto.getUser());
+        user.getVehicleList().add(createVehicle);
+        userRepository.save(user);
 
         return createVehicle;
 
     }
 
-    public Vehicle getVehicleByNumber(String number) throws Exception{
+    public Vehicle getVehicleByNumber(String number) throws RuntimeException{
         Optional<Vehicle> vehicle = vehicleRepository.findByNumber(number);
         if(vehicle.isEmpty()){
             throw new RuntimeException("Vehicle Do Not Exist");
