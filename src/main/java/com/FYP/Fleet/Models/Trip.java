@@ -66,4 +66,5 @@ public class Trip {
     @Builder.Default
     private List<Expense> expenseList = new ArrayList<>();
 
+
 }
