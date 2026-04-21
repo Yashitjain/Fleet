@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity(name = "Driver")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Driver {
 
     @Id

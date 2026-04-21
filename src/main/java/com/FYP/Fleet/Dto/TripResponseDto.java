@@ -16,6 +16,7 @@ public class TripResponseDto {
 
     private Long id;
     private String vehicleNumber;
+    private long driverId;
     private long ownerId;
     private String ownerName;
     private String source;
