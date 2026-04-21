@@ -1,6 +1,7 @@
 package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.TripDto;
+import com.FYP.Fleet.Dto.TripResponseDto;
 import com.FYP.Fleet.Enums.Status;
 import com.FYP.Fleet.Models.Driver;
 import com.FYP.Fleet.Models.Trip;
@@ -28,7 +29,7 @@ public class TripService {
         this.userService = userService;
     }
 
-    public Trip createTrip(TripDto tripDto){
+    public TripResponseDto createTrip(TripDto tripDto){
         Driver driver = driverService.getDriverById(tripDto.getDriverId());
         Vehicle vehicle = vehicleService.getVehicleByNumber(tripDto.getVehicleNumber());
         User user = userService.getUserById(tripDto.getUserId());
@@ -46,16 +47,43 @@ public class TripService {
                 .build();
 
         trip = tripRepository.save(trip);
-        return trip;
+
+        TripResponseDto response = TripResponseDto.builder()
+                .id(trip.getId())
+                .vehicleNumber(trip.getVehicle().getNumber())
+                .ownerId(trip.getOwner().getId())
+                .ownerName(trip.getOwner().getName())
+                .source(trip.getSource())
+                .destination(trip.getDestination())
+                .freightPrice(trip.getFreightPrice())
+                .startDate(trip.getStartDate())
+                .endDate(trip.getEndDate())
+                .expenseList(trip.getExpenseList())
+                .build();
+
+        return response;
     }
 
 
-    public Trip getTripById(long tripId) throws RuntimeException{
-        Optional<Trip> trip = tripRepository.findById(tripId);
-        if(trip.isEmpty()){
+    public TripResponseDto getTripById(long tripId) throws RuntimeException{
+        Optional<Trip> tripOptional = tripRepository.findById(tripId);
+        if(tripOptional.isEmpty()){
             throw new RuntimeException("Trip Do Not Exist");
         }
+        Trip trip = tripOptional.get();
+        TripResponseDto response = TripResponseDto.builder()
+                .id(tripId)
+                .vehicleNumber(trip.getVehicle().getNumber())
+                .ownerId(trip.getOwner().getId())
+                .ownerName(trip.getOwner().getName())
+                .source(trip.getSource())
+                .destination(trip.getDestination())
+                .freightPrice(trip.getFreightPrice())
+                .startDate(trip.getStartDate())
+                .endDate(trip.getEndDate())
+                .expenseList(trip.getExpenseList())
+                .build();
 
-        return trip.get();
+        return response;
     }
 }
