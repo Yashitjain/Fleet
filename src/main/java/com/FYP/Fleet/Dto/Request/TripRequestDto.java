@@ -1,4 +1,4 @@
-package com.FYP.Fleet.Dto;
+package com.FYP.Fleet.Dto.Request;
 import lombok.*;
 import java.time.LocalDate;
 
@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-public class TripDto {
+public class TripRequestDto {
 
     private long driverId;
     private String vehicleNumber;

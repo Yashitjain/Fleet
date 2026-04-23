@@ -1,4 +1,4 @@
-package com.FYP.Fleet.Dto;
+package com.FYP.Fleet.Dto.Request;
 
 import lombok.*;
 
@@ -7,9 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserDto {
+public class DriverRequestDto {
+
     private String name;
     private String phone;
-    private String password;
-
+    private long userId;
 }
+

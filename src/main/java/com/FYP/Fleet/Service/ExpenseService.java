@@ -1,8 +1,7 @@
 package com.FYP.Fleet.Service;
 
-import com.FYP.Fleet.Dto.ExpenseDto;
-import com.FYP.Fleet.Dto.ExpenseResponseDto;
-import com.FYP.Fleet.Dto.TripResponseDto;
+import com.FYP.Fleet.Dto.Request.ExpenseRequestDto;
+import com.FYP.Fleet.Dto.Response.ExpenseResponseDto;
 import com.FYP.Fleet.Models.Expense;
 import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Repository.ExpenseRepository;
@@ -29,15 +28,15 @@ public class ExpenseService {
     }
 
     @Transactional
-    public ExpenseResponseDto createExpense(ExpenseDto expenseDto){
-        Trip trip = tripRepository.findById(expenseDto.getTripId())
+    public ExpenseResponseDto createExpense(ExpenseRequestDto expenseRequestDto){
+        Trip trip = tripRepository.findById(expenseRequestDto.getTripId())
                 .orElseThrow(() -> new RuntimeException("Trip not found"));
         Expense expense = Expense.builder()
                 .trip(trip)
-                .expenseType(expenseDto.getExpenseType())
-                .note(expenseDto.getNote())
-                .amount(expenseDto.getAmount())
-                .date(expenseDto.getDate())
+                .expenseType(expenseRequestDto.getExpenseType())
+                .note(expenseRequestDto.getNote())
+                .amount(expenseRequestDto.getAmount())
+                .date(expenseRequestDto.getDate())
                 .build();
 
         expense = expenseRepository.save(expense);

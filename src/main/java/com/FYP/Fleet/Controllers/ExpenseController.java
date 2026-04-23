@@ -1,7 +1,7 @@
 package com.FYP.Fleet.Controllers;
 
-import com.FYP.Fleet.Dto.ExpenseDto;
-import com.FYP.Fleet.Dto.ExpenseResponseDto;
+import com.FYP.Fleet.Dto.Request.ExpenseRequestDto;
+import com.FYP.Fleet.Dto.Response.ExpenseResponseDto;
 import com.FYP.Fleet.Service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +20,8 @@ public class ExpenseController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<ExpenseResponseDto> createExpense(@RequestBody ExpenseDto expenseDto){
-        ExpenseResponseDto response = expenseService.createExpense(expenseDto);
+    public ResponseEntity<ExpenseResponseDto> createExpense(@RequestBody ExpenseRequestDto expenseRequestDto){
+        ExpenseResponseDto response = expenseService.createExpense(expenseRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

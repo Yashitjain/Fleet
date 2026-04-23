@@ -1,9 +1,8 @@
 package com.FYP.Fleet.Controllers;
 
-import com.FYP.Fleet.Dto.DriverDto;
-import com.FYP.Fleet.Dto.DriverResponseDto;
+import com.FYP.Fleet.Dto.Request.DriverRequestDto;
+import com.FYP.Fleet.Dto.Response.DriverResponseDto;
 import com.FYP.Fleet.Models.Driver;
-import com.FYP.Fleet.Repository.DriverRepository;
 import com.FYP.Fleet.Service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +21,8 @@ public class DriverController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Driver> createDriver(@RequestBody DriverDto driverDto){
-        Driver driver = driverService.createDriver(driverDto);
+    public ResponseEntity<Driver> createDriver(@RequestBody DriverRequestDto driverRequestDto){
+        Driver driver = driverService.createDriver(driverRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(driver);
     }
 

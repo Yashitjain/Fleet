@@ -1,6 +1,7 @@
 package com.FYP.Fleet.Models;
 
 import com.FYP.Fleet.Enums.Status;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -32,15 +33,17 @@ public class Trip {
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    @JsonManagedReference
+    @JsonBackReference
     private User owner;
 
     @ManyToOne
     @JoinColumn(name = "driver_id")
+    @JsonBackReference
     private Driver driver;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
+    @JsonBackReference
     private Vehicle vehicle;
 
     @NotNull

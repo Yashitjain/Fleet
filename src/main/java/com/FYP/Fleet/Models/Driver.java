@@ -1,5 +1,6 @@
 package com.FYP.Fleet.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -35,9 +36,11 @@ public class Driver {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User owner;
 
     @OneToMany(mappedBy = "driver")
     @Builder.Default
+    @JsonManagedReference
     private List<Trip> tripList = new ArrayList<>();
 }

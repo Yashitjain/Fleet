@@ -1,6 +1,5 @@
-package com.FYP.Fleet.Dto;
+package com.FYP.Fleet.Dto.Request;
 
-import com.FYP.Fleet.Models.User;
 import lombok.*;
 
 @Builder
@@ -8,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class VehicleDto {
+public class VehicleRequestDto {
 
     private String number;
     private long userId;

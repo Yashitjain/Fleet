@@ -1,7 +1,7 @@
 package com.FYP.Fleet.Service;
 
-import com.FYP.Fleet.Dto.VehicleDto;
-import com.FYP.Fleet.Dto.VehicleResponseDto;
+import com.FYP.Fleet.Dto.Request.VehicleRequestDto;
+import com.FYP.Fleet.Dto.Response.VehicleResponseDto;
 import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Models.Vehicle;
@@ -10,8 +10,6 @@ import com.FYP.Fleet.Repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 public class VehicleService {
@@ -27,10 +25,10 @@ public class VehicleService {
         this.userService = userService;
     }
     @Transactional
-    public Vehicle createVehicle(VehicleDto vehicleDto) throws Exception{
-        User owner = userService.getUserById(vehicleDto.getUserId());
+    public Vehicle createVehicle(VehicleRequestDto vehicleRequestDto) throws Exception{
+        User owner = userService.getUserById(vehicleRequestDto.getUserId());
         Vehicle createVehicle = Vehicle.builder()
-                .number(vehicleDto.getNumber())
+                .number(vehicleRequestDto.getNumber())
                 .owner(owner)
                 .build();
 

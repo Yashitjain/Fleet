@@ -1,7 +1,7 @@
 package com.FYP.Fleet.Controllers;
 
-import com.FYP.Fleet.Dto.TripDto;
-import com.FYP.Fleet.Dto.TripResponseDto;
+import com.FYP.Fleet.Dto.Request.TripRequestDto;
+import com.FYP.Fleet.Dto.Response.TripResponseDto;
 import com.FYP.Fleet.Service.TripService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +18,8 @@ public class TripController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<TripResponseDto> createTrip(@RequestBody TripDto tripDto){
-        TripResponseDto trip = tripService.createTrip(tripDto);
+    public ResponseEntity<TripResponseDto> createTrip(@RequestBody TripRequestDto tripRequestDto){
+        TripResponseDto trip = tripService.createTrip(tripRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(trip);
     }
 

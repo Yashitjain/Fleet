@@ -1,7 +1,7 @@
 package com.FYP.Fleet.Service;
 
-import com.FYP.Fleet.Dto.TripDto;
-import com.FYP.Fleet.Dto.TripResponseDto;
+import com.FYP.Fleet.Dto.Request.TripRequestDto;
+import com.FYP.Fleet.Dto.Response.TripResponseDto;
 import com.FYP.Fleet.Enums.Status;
 import com.FYP.Fleet.Models.*;
 import com.FYP.Fleet.Repository.TripRepository;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,20 +28,20 @@ public class TripService {
     }
 
     @Transactional
-    public TripResponseDto createTrip(TripDto tripDto){
-        Driver driver = driverService.getDriverById(tripDto.getDriverId());
-        Vehicle vehicle = vehicleService.getVehicleByNumber(tripDto.getVehicleNumber());
-        User owner = userService.getUserById(tripDto.getUserId());
+    public TripResponseDto createTrip(TripRequestDto tripRequestDto){
+        Driver driver = driverService.getDriverById(tripRequestDto.getDriverId());
+        Vehicle vehicle = vehicleService.getVehicleByNumber(tripRequestDto.getVehicleNumber());
+        User owner = userService.getUserById(tripRequestDto.getUserId());
 
         Trip trip = Trip.builder()
                 .driver(driver)
                 .vehicle(vehicle)
                 .owner(owner)
-                .source(tripDto.getSource())
-                .destination(tripDto.getDestination())
-                .freightPrice(tripDto.getFreightPrice())
-                .startDate(tripDto.getStartDate())
-                .endDate(tripDto.getEndDate())
+                .source(tripRequestDto.getSource())
+                .destination(tripRequestDto.getDestination())
+                .freightPrice(tripRequestDto.getFreightPrice())
+                .startDate(tripRequestDto.getStartDate())
+                .endDate(tripRequestDto.getEndDate())
                 .status(Status.ACTIVE)
                 .build();
 

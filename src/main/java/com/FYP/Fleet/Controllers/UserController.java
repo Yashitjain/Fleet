@@ -1,18 +1,16 @@
 package com.FYP.Fleet.Controllers;
 
-import com.FYP.Fleet.Dto.UserDto;
-import com.FYP.Fleet.Dto.UserResponseDto;
+import com.FYP.Fleet.Dto.Request.UserRequestDto;
+import com.FYP.Fleet.Dto.Response.UserResponseDto;
 import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
-
 @RestController
+@RequestMapping("api/v1/user")
 public class UserController {
 
     private final UserService userService;
@@ -21,13 +19,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("api/v1/user")
-    public ResponseEntity<User> createUser(@RequestBody UserDto userDto){
-        User user = userService.createUser(userDto);
+    @PostMapping("/")
+    public ResponseEntity<User> createUser(@RequestBody UserRequestDto userRequestDto){
+        User user = userService.createUser(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @GetMapping("api/v1/user/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable long userId){
         UserResponseDto user = userService.getUserResponseById(userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);

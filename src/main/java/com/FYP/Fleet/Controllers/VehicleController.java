@@ -1,7 +1,7 @@
 package com.FYP.Fleet.Controllers;
 
-import com.FYP.Fleet.Dto.VehicleDto;
-import com.FYP.Fleet.Dto.VehicleResponseDto;
+import com.FYP.Fleet.Dto.Request.VehicleRequestDto;
+import com.FYP.Fleet.Dto.Response.VehicleResponseDto;
 import com.FYP.Fleet.Models.Vehicle;
 import com.FYP.Fleet.Service.VehicleService;
 import org.springframework.http.HttpStatus;
@@ -19,12 +19,12 @@ public class VehicleController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Vehicle> createVehicle(@RequestBody VehicleDto vehicleDto) throws Exception{
-        Vehicle vehicle = vehicleService.createVehicle(vehicleDto);
+    public ResponseEntity<Vehicle> createVehicle(@RequestBody VehicleRequestDto vehicleRequestDto) throws Exception{
+        Vehicle vehicle = vehicleService.createVehicle(vehicleRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(vehicle);
     }
 
-    @GetMapping("/{number}")
+    @GetMapping("/number/{number}")
     public ResponseEntity<VehicleResponseDto> getVehicleByNumber(@PathVariable String number) throws Exception{
         VehicleResponseDto vehicle = vehicleService.getVehicleResponseByNumber(number);
         return ResponseEntity.status(HttpStatus.OK).body(vehicle);

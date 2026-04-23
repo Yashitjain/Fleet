@@ -1,7 +1,7 @@
 package com.FYP.Fleet.Service;
 
-import com.FYP.Fleet.Dto.UserDto;
-import com.FYP.Fleet.Dto.UserResponseDto;
+import com.FYP.Fleet.Dto.Request.UserRequestDto;
+import com.FYP.Fleet.Dto.Response.UserResponseDto;
 import com.FYP.Fleet.Models.Driver;
 import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
@@ -9,8 +9,6 @@ import com.FYP.Fleet.Models.Vehicle;
 import com.FYP.Fleet.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -22,11 +20,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(UserDto userDto){
+    public User createUser(UserRequestDto userRequestDto){
         User createuser = User.builder()
-                .name(userDto.getName())
-                .phone(userDto.getPhone())
-                .password(userDto.getPassword())
+                .name(userRequestDto.getName())
+                .phone(userRequestDto.getPhone())
+                .password(userRequestDto.getPassword())
                 .build();
 
         createuser = userRepository.save(createuser);

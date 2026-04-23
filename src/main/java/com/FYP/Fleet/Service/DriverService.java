@@ -1,7 +1,7 @@
 package com.FYP.Fleet.Service;
 
-import com.FYP.Fleet.Dto.DriverDto;
-import com.FYP.Fleet.Dto.DriverResponseDto;
+import com.FYP.Fleet.Dto.Request.DriverRequestDto;
+import com.FYP.Fleet.Dto.Response.DriverResponseDto;
 import com.FYP.Fleet.Models.Driver;
 import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
@@ -23,11 +23,11 @@ public class DriverService {
     }
 
     @Transactional
-    public Driver createDriver(DriverDto driverDto){
-        User owner = userService.getUserById(driverDto.getUserId());
+    public Driver createDriver(DriverRequestDto driverRequestDto){
+        User owner = userService.getUserById(driverRequestDto.getUserId());
         Driver driver = Driver.builder()
-                .name(driverDto.getName())
-                .phone(driverDto.getPhone())
+                .name(driverRequestDto.getName())
+                .phone(driverRequestDto.getPhone())
                 .owner(owner)
                 .build();
 
