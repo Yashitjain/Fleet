@@ -1,6 +1,8 @@
 package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.VehicleDto;
+import com.FYP.Fleet.Dto.VehicleResponseDto;
+import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Models.Vehicle;
 import com.FYP.Fleet.Repository.UserRepository;
@@ -40,13 +42,26 @@ public class VehicleService {
 
     }
 
-    public Vehicle getVehicleByNumber(String number) throws RuntimeException{
-        Optional<Vehicle> vehicle = vehicleRepository.findByNumber(number);
-        if(vehicle.isEmpty()){
-            throw new RuntimeException("Vehicle Do Not Exist");
-        }
+    public VehicleResponseDto getVehicleResponseByNumber(String number) throws RuntimeException{
+        Vehicle vehicle = getVehicleByNumber(number);
+        return VehicleResponseDto.builder()
+                .id(vehicle.getId())
+                .number(vehicle.getNumber())
+                .tripList(vehicle.getTripList().stream().map(Trip::getId).toList())
+                .build();
 
-        return vehicle.get();
+    }
+
+    public Vehicle getVehicleById(long id){
+        return vehicleRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("Vehicle Id Do Not Exist")
+        );
+    }
+
+    public Vehicle getVehicleByNumber(String number){
+        return vehicleRepository.findByNumber(number).orElseThrow(
+                ()-> new RuntimeException("Vehicle Number Do Not Exist")
+        );
     }
 
 
