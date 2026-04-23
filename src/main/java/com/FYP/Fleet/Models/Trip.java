@@ -37,12 +37,10 @@ public class Trip {
 
     @ManyToOne
     @JoinColumn(name = "driver_id")
-    @JsonIgnoreProperties("user")
     private Driver driver;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
-    @JsonIgnoreProperties({"user", "tripList"})
     private Vehicle vehicle;
 
     @NotNull
@@ -63,7 +61,6 @@ public class Trip {
     private Status status;
 
     @OneToMany(mappedBy = "trip")
-    @JsonIgnoreProperties("trip")
     @Builder.Default
     private List<Expense> expenseList = new ArrayList<>();
 

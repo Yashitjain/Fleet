@@ -35,11 +35,9 @@ public class Driver {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties("driverList")
     private User user;
 
     @OneToMany(mappedBy = "driver")
-    @JsonIgnoreProperties("driver")
     @Builder.Default
     private List<Trip> tripList = new ArrayList<>();
 }

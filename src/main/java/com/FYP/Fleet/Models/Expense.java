@@ -1,9 +1,7 @@
 package com.FYP.Fleet.Models;
 
 import com.FYP.Fleet.Enums.ExpenseType;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -30,7 +28,6 @@ public class Expense {
 
     @ManyToOne
     @JoinColumn(name = "trip_id")
-    @JsonIgnoreProperties("expenseList")
     private Trip trip;
 
     @NotNull

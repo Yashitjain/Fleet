@@ -41,12 +41,10 @@ public class User {
     private String password;
 
     @OneToMany( mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("user")
     @Builder.Default
     private List<Vehicle> vehicleList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("user")
     @Builder.Default
     private List<Driver> driverList = new ArrayList<>();
 

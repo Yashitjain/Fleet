@@ -34,11 +34,9 @@ public class Vehicle {
 
     @ManyToOne()
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"vehicleList"})
     private User user;
 
     @OneToMany(mappedBy = "vehicle")
-    @JsonIgnoreProperties({"vehicle", "vehicleList"})
     private List<Trip> tripList = new ArrayList<>();
 
 
