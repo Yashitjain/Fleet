@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 public class DriverService {
 
@@ -26,15 +24,15 @@ public class DriverService {
 
     @Transactional
     public Driver createDriver(DriverDto driverDto){
-        User user = userService.getUserById(driverDto.getUserId());
+        User owner = userService.getUserById(driverDto.getUserId());
         Driver driver = Driver.builder()
                 .name(driverDto.getName())
                 .phone(driverDto.getPhone())
-                .owner(user)
+                .owner(owner)
                 .build();
 
         driver = driverRepository.save(driver);
-        user.getDriverList().add(driver);
+        owner.getDriverList().add(driver);
         return driver;
     }
 

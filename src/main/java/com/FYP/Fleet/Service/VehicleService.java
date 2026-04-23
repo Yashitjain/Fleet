@@ -26,15 +26,15 @@ public class VehicleService {
     }
     @Transactional
     public Vehicle createVehicle(VehicleDto vehicleDto) throws Exception{
-        User user = userService.getUserById(vehicleDto.getUserId());
+        User owner = userService.getUserById(vehicleDto.getUserId());
         Vehicle createVehicle = Vehicle.builder()
                 .number(vehicleDto.getNumber())
-                .user(user)
+                .owner(owner)
                 .build();
 
         createVehicle = vehicleRepository.save(createVehicle);
-        user.getVehicleList().add(createVehicle);
-        userRepository.save(user);
+        owner.getVehicleList().add(createVehicle);
+        userRepository.save(owner);
 
         return createVehicle;
 

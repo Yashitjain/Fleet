@@ -32,12 +32,12 @@ public class TripService {
     public TripResponseDto createTrip(TripDto tripDto){
         Driver driver = driverService.getDriverById(tripDto.getDriverId());
         Vehicle vehicle = vehicleService.getVehicleByNumber(tripDto.getVehicleNumber());
-        User user = userService.getUserById(tripDto.getUserId());
+        User owner = userService.getUserById(tripDto.getUserId());
 
         Trip trip = Trip.builder()
                 .driver(driver)
                 .vehicle(vehicle)
-                .owner(user)
+                .owner(owner)
                 .source(tripDto.getSource())
                 .destination(tripDto.getDestination())
                 .freightPrice(tripDto.getFreightPrice())
@@ -48,7 +48,7 @@ public class TripService {
 
         trip = tripRepository.save(trip);
         vehicle.getTripList().add(trip);
-        user.getTripList().add(trip);
+        owner.getTripList().add(trip);
         driver.getTripList().add(trip);
 
         return TripResponseDto.builder()

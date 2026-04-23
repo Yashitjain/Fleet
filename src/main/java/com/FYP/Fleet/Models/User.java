@@ -40,11 +40,11 @@ public class User {
     @NotNull
     private String password;
 
-    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "owner", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Vehicle> vehicleList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Driver> driverList = new ArrayList<>();
 

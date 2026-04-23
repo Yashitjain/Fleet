@@ -34,7 +34,7 @@ public class Vehicle {
 
     @ManyToOne()
     @JoinColumn(name = "user_id")
-    private User user;
+    private User owner;
 
     @OneToMany(mappedBy = "vehicle")
     private List<Trip> tripList = new ArrayList<>();
