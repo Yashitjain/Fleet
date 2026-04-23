@@ -34,6 +34,8 @@ public class Expense {
     private Trip trip;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private ExpenseType expenseType;
 
     private String note;

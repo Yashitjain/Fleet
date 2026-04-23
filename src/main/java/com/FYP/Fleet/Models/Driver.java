@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name = "Driver")
 @Builder
 @NoArgsConstructor
@@ -34,4 +37,9 @@ public class Driver {
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("driverList")
     private User user;
+
+    @OneToMany(mappedBy = "driver")
+    @JsonIgnoreProperties("driver")
+    @Builder.Default
+    private List<Trip> tripList = new ArrayList<>();
 }

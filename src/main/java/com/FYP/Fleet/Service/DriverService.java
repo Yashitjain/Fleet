@@ -6,6 +6,7 @@ import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ public class DriverService {
         this.userService = userService;
     }
 
+    @Transactional
     public Driver createDriver(DriverDto driverDto){
         User user = userService.getUserById(driverDto.getUserId());
         Driver driver = Driver.builder()
@@ -30,6 +32,7 @@ public class DriverService {
                 .build();
 
         driver = driverRepository.save(driver);
+        user.getDriverList().add(driver);
         return driver;
     }
 

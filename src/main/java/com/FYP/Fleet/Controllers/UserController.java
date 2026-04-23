@@ -1,6 +1,7 @@
 package com.FYP.Fleet.Controllers;
 
 import com.FYP.Fleet.Dto.UserDto;
+import com.FYP.Fleet.Dto.UserResponseDto;
 import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class UserController {
     }
 
     @GetMapping("api/v1/user/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable long userId){
-        User user = userService.getUserById(userId);
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable long userId){
+        UserResponseDto user = userService.getUserResponseById(userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 }

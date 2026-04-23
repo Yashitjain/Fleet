@@ -8,6 +8,7 @@ import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Repository.ExpenseRepository;
 import com.FYP.Fleet.Repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +28,7 @@ public class ExpenseService {
         this.tripRepository = tripRepository;
     }
 
+    @Transactional
     public ExpenseResponseDto createExpense(ExpenseDto expenseDto){
         Trip trip = tripRepository.findById(expenseDto.getTripId())
                 .orElseThrow(() -> new RuntimeException("Trip not found"));
@@ -39,6 +41,7 @@ public class ExpenseService {
                 .build();
 
         expense = expenseRepository.save(expense);
+        trip.getExpenseList().add(expense);
 
         return ExpenseResponseDto.builder()
                 .expenseId(expense.getId())

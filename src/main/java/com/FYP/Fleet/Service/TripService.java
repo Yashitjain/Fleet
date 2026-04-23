@@ -3,14 +3,13 @@ package com.FYP.Fleet.Service;
 import com.FYP.Fleet.Dto.TripDto;
 import com.FYP.Fleet.Dto.TripResponseDto;
 import com.FYP.Fleet.Enums.Status;
-import com.FYP.Fleet.Models.Driver;
-import com.FYP.Fleet.Models.Trip;
-import com.FYP.Fleet.Models.User;
-import com.FYP.Fleet.Models.Vehicle;
+import com.FYP.Fleet.Models.*;
 import com.FYP.Fleet.Repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +28,7 @@ public class TripService {
         this.userService = userService;
     }
 
+    @Transactional
     public TripResponseDto createTrip(TripDto tripDto){
         Driver driver = driverService.getDriverById(tripDto.getDriverId());
         Vehicle vehicle = vehicleService.getVehicleByNumber(tripDto.getVehicleNumber());
@@ -47,8 +47,11 @@ public class TripService {
                 .build();
 
         trip = tripRepository.save(trip);
+        vehicle.getTripList().add(trip);
+        user.getTripList().add(trip);
+        driver.getTripList().add(trip);
 
-        TripResponseDto response = TripResponseDto.builder()
+        return TripResponseDto.builder()
                 .id(trip.getId())
                 .vehicleNumber(trip.getVehicle().getNumber())
                 .driverId(trip.getDriver().getId())
@@ -62,7 +65,6 @@ public class TripService {
                 .expenseList(trip.getExpenseList())
                 .build();
 
-        return response;
     }
 
 
@@ -72,7 +74,7 @@ public class TripService {
             throw new RuntimeException("Trip Do Not Exist");
         }
         Trip trip = tripOptional.get();
-        TripResponseDto response = TripResponseDto.builder()
+        return TripResponseDto.builder()
                 .id(tripId)
                 .vehicleNumber(trip.getVehicle().getNumber())
                 .driverId(trip.getDriver().getId())
@@ -86,6 +88,21 @@ public class TripService {
                 .expenseList(trip.getExpenseList())
                 .build();
 
-        return response;
+    }
+
+    @Transactional
+    public String getTripExpenseById(long tripId){
+        Trip trip = tripRepository.findById(tripId).orElseThrow(
+                ()-> new RuntimeException("Trip Id Invalid"));
+
+        List<Expense> expenseList = trip.getExpenseList();
+
+        Integer totalExpense = expenseList.stream().mapToInt((Expense::getAmount)).sum();
+        Integer freightPrice = trip.getFreightPrice();
+        int balance = freightPrice - totalExpense;
+
+        return "Freight Price: " + freightPrice +
+                "\nTotal Expense: " + totalExpense +
+                "\nProfit: " + balance;
     }
 }

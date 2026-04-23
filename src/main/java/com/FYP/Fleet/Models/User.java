@@ -51,7 +51,6 @@ public class User {
     private List<Driver> driverList = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner")
-    @JsonIgnoreProperties("owner")
     @Builder.Default
     private List<Trip> tripList = new ArrayList<>();
 

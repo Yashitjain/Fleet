@@ -38,7 +38,7 @@ public class Vehicle {
     private User user;
 
     @OneToMany(mappedBy = "vehicle")
-    @JsonIgnoreProperties("vehicle")
+    @JsonIgnoreProperties({"vehicle", "vehicleList"})
     private List<Trip> tripList = new ArrayList<>();
 
 

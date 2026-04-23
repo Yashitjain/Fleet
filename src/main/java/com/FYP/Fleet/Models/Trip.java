@@ -42,7 +42,7 @@ public class Trip {
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
-    @JsonIgnoreProperties("user")
+    @JsonIgnoreProperties({"user", "tripList"})
     private Vehicle vehicle;
 
     @NotNull

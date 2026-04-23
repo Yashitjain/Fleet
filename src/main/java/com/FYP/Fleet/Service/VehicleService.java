@@ -7,6 +7,7 @@ import com.FYP.Fleet.Repository.UserRepository;
 import com.FYP.Fleet.Repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class VehicleService {
         this.userRepository = userRepository;
         this.userService = userService;
     }
-
+    @Transactional
     public Vehicle createVehicle(VehicleDto vehicleDto) throws Exception{
         User user = userService.getUserById(vehicleDto.getUserId());
         Vehicle createVehicle = Vehicle.builder()

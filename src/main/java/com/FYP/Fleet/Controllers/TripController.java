@@ -29,4 +29,10 @@ public class TripController {
         TripResponseDto trip = tripService.getTripById(tripId);
         return ResponseEntity.status(HttpStatus.OK).body(trip);
     }
+
+    @GetMapping("/summary/{tripId}")
+    public ResponseEntity<String> getTripSummary(@PathVariable long tripId){
+        String summary = tripService.getTripExpenseById(tripId);
+        return ResponseEntity.status(HttpStatus.OK).body(summary);
+    }
 }
