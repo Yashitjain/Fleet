@@ -35,7 +35,7 @@ public class Driver {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User owner;
 
     @OneToMany(mappedBy = "driver")
     @Builder.Default

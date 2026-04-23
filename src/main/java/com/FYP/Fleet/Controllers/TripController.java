@@ -2,7 +2,6 @@ package com.FYP.Fleet.Controllers;
 
 import com.FYP.Fleet.Dto.TripDto;
 import com.FYP.Fleet.Dto.TripResponseDto;
-import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Service.TripService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ public class TripController {
 
     @GetMapping("/{tripId}")
     public ResponseEntity<TripResponseDto> getTrip(@PathVariable long tripId){
-        TripResponseDto trip = tripService.getTripById(tripId);
+        TripResponseDto trip = tripService.getTripResponseById(tripId);
         return ResponseEntity.status(HttpStatus.OK).body(trip);
     }
 

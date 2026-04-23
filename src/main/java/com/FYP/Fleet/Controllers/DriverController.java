@@ -1,6 +1,7 @@
 package com.FYP.Fleet.Controllers;
 
 import com.FYP.Fleet.Dto.DriverDto;
+import com.FYP.Fleet.Dto.DriverResponseDto;
 import com.FYP.Fleet.Models.Driver;
 import com.FYP.Fleet.Repository.DriverRepository;
 import com.FYP.Fleet.Service.DriverService;
@@ -27,8 +28,8 @@ public class DriverController {
     }
 
     @GetMapping("/{driverId}")
-    public ResponseEntity<Driver> getDriverById(@PathVariable long driverId){
-        Driver driver = driverService.getDriverById(driverId);
+    public ResponseEntity<DriverResponseDto> getDriverById(@PathVariable long driverId){
+        DriverResponseDto driver = driverService.getDriverResponseById(driverId);
         return ResponseEntity.status(HttpStatus.OK).body(driver);
     }
 }

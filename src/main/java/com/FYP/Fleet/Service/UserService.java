@@ -47,7 +47,6 @@ public class UserService {
 
 
     public User getUserById(long userId){
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User do not exist"));
-        return user;
+        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User do not exist"));
     }
 }

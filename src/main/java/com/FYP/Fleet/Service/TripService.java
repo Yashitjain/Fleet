@@ -68,7 +68,7 @@ public class TripService {
     }
 
 
-    public TripResponseDto getTripById(long tripId) throws RuntimeException{
+    public TripResponseDto getTripResponseById(long tripId) throws RuntimeException{
         Optional<Trip> tripOptional = tripRepository.findById(tripId);
         if(tripOptional.isEmpty()){
             throw new RuntimeException("Trip Do Not Exist");
@@ -90,14 +90,10 @@ public class TripService {
 
     }
 
-    @Transactional
     public String getTripExpenseById(long tripId){
-        Trip trip = tripRepository.findById(tripId).orElseThrow(
-                ()-> new RuntimeException("Trip Id Invalid"));
+        Trip trip = getTripId(tripId);
 
-        List<Expense> expenseList = trip.getExpenseList();
-
-        Integer totalExpense = expenseList.stream().mapToInt((Expense::getAmount)).sum();
+        Integer totalExpense = trip.getExpenseList().stream().mapToInt(Expense::getAmount).sum();
         Integer freightPrice = trip.getFreightPrice();
         int balance = freightPrice - totalExpense;
 
@@ -105,4 +101,15 @@ public class TripService {
                 "\nTotal Expense: " + totalExpense +
                 "\nProfit: " + balance;
     }
+
+    private Trip getTripId(long tripId){
+        return tripRepository.findById(tripId).orElseThrow(
+                ()-> new RuntimeException("Trip Id Invalid"));
+    }
+
+    private int getTotalExpenseByTripId(long tripId){
+        Trip trip = getTripId(tripId);
+        return trip.getExpenseList().stream().mapToInt(Expense::getAmount).sum();
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.DriverDto;
+import com.FYP.Fleet.Dto.DriverResponseDto;
 import com.FYP.Fleet.Models.Driver;
+import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class DriverService {
         Driver driver = Driver.builder()
                 .name(driverDto.getName())
                 .phone(driverDto.getPhone())
-                .user(user)
+                .owner(user)
                 .build();
 
         driver = driverRepository.save(driver);
@@ -36,11 +38,22 @@ public class DriverService {
         return driver;
     }
 
+    public DriverResponseDto getDriverResponseById(long driverId){
+        Driver driver = getDriverById(driverId);
+
+        return DriverResponseDto.builder()
+                .id(driverId)
+                .name(driver.getName())
+                .phone(driver.getPhone())
+                .ownerId(driver.getOwner().getId())
+                .ownerName(driver.getOwner().getName())
+                .tripList(driver.getTripList().stream().map(Trip::getId).toList())
+                .build();
+    }
+
     public Driver getDriverById(long driverId){
-        Optional<Driver> driver = driverRepository.findById(driverId);
-        if(driver.isEmpty()){
-            throw new RuntimeException("Driver Do Not Exists");
-        }
-        return driver.get();
+        return driverRepository.findById(driverId).orElseThrow(
+                ()->new RuntimeException("Driver Do Not Exists")
+        );
     }
 }
