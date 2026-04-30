@@ -57,7 +57,7 @@ public class ExpenseService {
                 .build();
     }
 
-    public ExpenseResponseDto getExpenseById(long expenseId){
+    public ExpenseResponseDto getExpenseResponseById(long expenseId){
         Expense expense = expenseRepository.findById(expenseId)
                 .orElseThrow(() -> new RuntimeException("Expense Not Found"));
 
@@ -74,5 +74,22 @@ public class ExpenseService {
                 .note(expense.getNote())
                 .expenseType(expense.getExpenseType())
                 .build();
+    }
+
+    public void updateResponse(long expenseId, ExpenseRequestDto expenseRequestDto){
+        Expense expense = getExpenseById(expenseId);
+        if(expenseRequestDto.getExpenseType() != null) expense.setExpenseType(expenseRequestDto.getExpenseType());
+        if(expenseRequestDto.getNote() != null) expense.setNote(expenseRequestDto.getNote());
+        if(expenseRequestDto.getDate() != null) expense.setDate(expenseRequestDto.getDate());
+        if(expenseRequestDto.getAmount() != null) expense.setAmount(expenseRequestDto.getAmount());
+        expenseRepository.save(expense);
+
+    }
+
+
+    private Expense getExpenseById(long expenseId){
+        return expenseRepository.findById(expenseId).orElseThrow(
+                () -> new RuntimeException("Expense Id Do Not Exist")
+        );
     }
 }

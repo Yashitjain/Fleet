@@ -27,7 +27,7 @@ public class ExpenseController {
 
     @GetMapping("/{expenseId}")
     public ResponseEntity<ExpenseResponseDto> getExpenseById(@PathVariable long expenseId){
-        ExpenseResponseDto response = expenseService.getExpenseById(expenseId);
+        ExpenseResponseDto response = expenseService.getExpenseResponseById(expenseId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
