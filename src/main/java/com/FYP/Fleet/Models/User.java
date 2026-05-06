@@ -30,12 +30,15 @@ public class User {
     private Long id;
 
     @Column(name = "name")
-    @NotNull
     private String name;
 
     @Column(name = "phone")
-    @NotNull
     private String phone;
+
+    @Column(name = "username", unique = true)
+    @NotNull
+    private String username;
+
 
     @Column(name = "password")
     @NotNull
