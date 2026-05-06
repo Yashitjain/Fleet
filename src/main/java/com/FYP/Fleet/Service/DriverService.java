@@ -5,10 +5,13 @@ import com.FYP.Fleet.Dto.Response.DriverResponseDto;
 import com.FYP.Fleet.Models.Driver;
 import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
+import com.FYP.Fleet.Models.Vehicle;
 import com.FYP.Fleet.Repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class DriverService {
@@ -47,6 +50,10 @@ public class DriverService {
         );
     }
 
+    public List<DriverResponseDto> getAllDriverOfOwner(Long ownerId) {
+        List<Driver> driverList = driverRepository.findAll();
+        return driverList.stream().filter(d -> d.getOwner().getId().equals(ownerId)).map(this :: getDriverResponse).toList();
+    }
 
     private DriverResponseDto getDriverResponse(Driver driver){
         return DriverResponseDto.builder()
@@ -58,4 +65,5 @@ public class DriverService {
                 .tripList(driver.getTripList().stream().map(Trip::getId).toList())
                 .build();
     }
+
 }

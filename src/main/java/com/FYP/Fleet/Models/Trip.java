@@ -61,6 +61,8 @@ public class Trip {
     private LocalDate endDate;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private Status status;
 
     @OneToMany(mappedBy = "trip")

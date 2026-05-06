@@ -42,7 +42,7 @@ public class AuthService {
         user = userRepository.save(user);
 
         return SignUpResponseDto.builder()
-                .userName(user.getName())
+                .username(user.getUsername())
                 .userId(user.getId())
                 .build();
 

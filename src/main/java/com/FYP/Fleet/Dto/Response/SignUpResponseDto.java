@@ -9,6 +9,6 @@ import lombok.*;
 @Setter
 public class SignUpResponseDto {
 
-    private String userName;
+    private String username;
     private long userId;
 }

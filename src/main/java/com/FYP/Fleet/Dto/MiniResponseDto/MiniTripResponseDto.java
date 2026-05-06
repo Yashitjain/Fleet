@@ -1,31 +1,24 @@
-package com.FYP.Fleet.Dto.Response;
+package com.FYP.Fleet.Dto.MiniResponseDto;
 
 import com.FYP.Fleet.Enums.Status;
-import com.FYP.Fleet.Models.Expense;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class TripResponseDto {
-
+public class MiniTripResponseDto {
     private Long id;
     private String vehicleNumber;
     private long driverId;
-    private long ownerId;
-    private String ownerName;
     private String source;
     private String destination;
-    private Integer freightPrice;
     private LocalDate startDate;
     private LocalDate endDate;
+    private int freightPrice;
     private Status status;
-    @Builder.Default
-    private List<Expense> expenseList = new ArrayList<>();
+    private int profit;
 }

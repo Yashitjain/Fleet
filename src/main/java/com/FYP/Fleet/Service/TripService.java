@@ -1,7 +1,9 @@
 package com.FYP.Fleet.Service;
 
+import com.FYP.Fleet.Dto.MiniResponseDto.MiniTripResponseDto;
 import com.FYP.Fleet.Dto.Request.TripRequestDto;
 import com.FYP.Fleet.Dto.Response.TripResponseDto;
+import com.FYP.Fleet.Enums.ExpenseType;
 import com.FYP.Fleet.Enums.Status;
 import com.FYP.Fleet.Models.*;
 import com.FYP.Fleet.Repository.TripRepository;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,7 +52,73 @@ public class TripService {
         vehicle.getTripList().add(trip);
         owner.getTripList().add(trip);
         driver.getTripList().add(trip);
+        return getTripResponse(trip);
+    }
 
+
+    public TripResponseDto getTripResponseById(long tripId) throws RuntimeException{
+        Optional<Trip> tripOptional = tripRepository.findById(tripId);
+        if(tripOptional.isEmpty()){
+            throw new RuntimeException("Trip Do Not Exist");
+        }
+        Trip trip = tripOptional.get();
+        return getTripResponse(trip);
+
+    }
+
+    public String getTripSummaryById(long tripId){
+        Trip trip = getTripById(tripId);
+
+        int freightPrice = trip.getFreightPrice();
+
+        int dieselExpense = getExpenseByCategory(ExpenseType.DIESEL, trip);
+        int tollExpense = getExpenseByCategory(ExpenseType.TOLL, trip);
+        int driverExpense = getExpenseByCategory(ExpenseType.DRIVER, trip);
+        int otherExpense = getExpenseByCategory(ExpenseType.OTHER, trip);
+        int totalExpense = dieselExpense + tollExpense + driverExpense + otherExpense;
+
+        int profit = freightPrice - totalExpense;
+        return "Freight Price: " + freightPrice +
+                "\n\t Diesel Expense: " + dieselExpense +
+                "\n\t Toll Expense: " + tollExpense +
+                "\n\t Driver Expense: " + driverExpense +
+                "\n\t Other Expense: " + otherExpense +
+                "\nTotal Expense: " + totalExpense +
+                "\n\nProfit: " + profit;
+    }
+
+    public Trip getTripById(long tripId){
+        return tripRepository.findById(tripId).orElseThrow(
+                ()-> new RuntimeException("Trip Id Invalid"));
+    }
+
+    public int getTotalExpenseOfTrip(Trip trip){
+        int dieselExpense = getExpenseByCategory(ExpenseType.DIESEL, trip);
+        int tollExpense = getExpenseByCategory(ExpenseType.TOLL, trip);
+        int driverExpense = getExpenseByCategory(ExpenseType.DRIVER, trip);
+        int otherExpense = getExpenseByCategory(ExpenseType.OTHER, trip);
+
+        return dieselExpense + tollExpense + driverExpense + otherExpense;
+    }
+
+    public int getTotalProfitOfTrip(Trip trip){
+        int freightPrice = trip.getFreightPrice();
+        int totalExpense = getTotalExpenseOfTrip(trip);
+        return freightPrice - totalExpense;
+    }
+
+    public int getExpenseByCategory(ExpenseType expenseType, Trip trip){
+        return trip.getExpenseList().stream().filter(t -> t.getExpenseType().equals(expenseType)).mapToInt(Expense::getAmount).sum();
+    }
+
+
+    public List<MiniTripResponseDto> getTripsOfOwner(Long ownerId) {
+        List<Trip> trips = tripRepository.findAll();
+        return trips.stream().filter(t -> t.getOwner().getId().equals(ownerId)).map(this::getMiniTripResponse).toList();
+
+    }
+
+    private TripResponseDto getTripResponse(Trip trip){
         return TripResponseDto.builder()
                 .id(trip.getId())
                 .vehicleNumber(trip.getVehicle().getNumber())
@@ -62,53 +131,33 @@ public class TripService {
                 .startDate(trip.getStartDate())
                 .endDate(trip.getEndDate())
                 .expenseList(trip.getExpenseList())
+                .status(trip.getStatus())
                 .build();
-
     }
 
+    public String getTripStatus(long tripId) {
+        Trip trip = getTripById(tripId);
+        return trip.getStatus().name();
+    }
 
-    public TripResponseDto getTripResponseById(long tripId) throws RuntimeException{
-        Optional<Trip> tripOptional = tripRepository.findById(tripId);
-        if(tripOptional.isEmpty()){
-            throw new RuntimeException("Trip Do Not Exist");
-        }
-        Trip trip = tripOptional.get();
-        return TripResponseDto.builder()
-                .id(tripId)
+    private MiniTripResponseDto getMiniTripResponse(Trip trip){
+        return MiniTripResponseDto.builder()
+                .id(trip.getId())
                 .vehicleNumber(trip.getVehicle().getNumber())
                 .driverId(trip.getDriver().getId())
-                .ownerId(trip.getOwner().getId())
-                .ownerName(trip.getOwner().getName())
                 .source(trip.getSource())
                 .destination(trip.getDestination())
-                .freightPrice(trip.getFreightPrice())
                 .startDate(trip.getStartDate())
                 .endDate(trip.getEndDate())
-                .expenseList(trip.getExpenseList())
+                .freightPrice(trip.getFreightPrice())
+                .status(trip.getStatus())
+                .profit(getTotalProfitOfTrip(trip))
                 .build();
-
     }
 
-    public String getTripExpenseById(long tripId){
-        Trip trip = getTripId(tripId);
-
-        Integer totalExpense = trip.getExpenseList().stream().mapToInt(Expense::getAmount).sum();
-        Integer freightPrice = trip.getFreightPrice();
-        int balance = freightPrice - totalExpense;
-
-        return "Freight Price: " + freightPrice +
-                "\nTotal Expense: " + totalExpense +
-                "\nProfit: " + balance;
+    public void closeTrip(long tripId) {
+        Trip trip = getTripById(tripId);
+        trip.setStatus(Status.COMPLETED);
+        tripRepository.save(trip);
     }
-
-    private Trip getTripId(long tripId){
-        return tripRepository.findById(tripId).orElseThrow(
-                ()-> new RuntimeException("Trip Id Invalid"));
-    }
-
-    private int getTotalExpenseByTripId(long tripId){
-        Trip trip = getTripId(tripId);
-        return trip.getExpenseList().stream().mapToInt(Expense::getAmount).sum();
-    }
-
 }

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class VehicleService {
 
@@ -28,7 +30,7 @@ public class VehicleService {
     public Vehicle createVehicle(VehicleRequestDto vehicleRequestDto, long userId) {
         User owner = userService.getUserById(userId);
         Vehicle createVehicle = Vehicle.builder()
-                .number(vehicleRequestDto.getNumber())
+                .number(vehicleRequestDto.getVehicleNumber())
                 .owner(owner)
                 .build();
 
@@ -40,11 +42,11 @@ public class VehicleService {
 
     }
 
-    public VehicleResponseDto getVehicleResponseByNumber(String number) throws RuntimeException{
+    public VehicleResponseDto getVehicleByVehicleNumber(String number) throws RuntimeException{
         Vehicle vehicle = getVehicleByNumber(number);
         return VehicleResponseDto.builder()
                 .id(vehicle.getId())
-                .number(vehicle.getNumber())
+                .vehicleNumber(vehicle.getNumber())
                 .tripList(vehicle.getTripList().stream().map(Trip::getId).toList())
                 .build();
 
@@ -63,4 +65,16 @@ public class VehicleService {
     }
 
 
+    public List<VehicleResponseDto> getAllVehicleOfOwner(Long ownerId) {
+        List<Vehicle> vehicleList = vehicleRepository.findAll();
+        return vehicleList.stream().filter(v -> v.getOwner().getId().equals(ownerId)).map(this::getVehicleResponse).toList();
+    }
+
+    private VehicleResponseDto getVehicleResponse(Vehicle vehicle){
+        return VehicleResponseDto.builder()
+                .id(vehicle.getId())
+                .vehicleNumber(vehicle.getNumber())
+                .tripList(vehicle.getTripList().stream().map(Trip::getId).toList())
+                .build();
+    }
 }

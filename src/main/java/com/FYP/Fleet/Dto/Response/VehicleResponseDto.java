@@ -12,6 +12,6 @@ import java.util.List;
 public class VehicleResponseDto {
 
     private long id;
-    private String number;
+    private String vehicleNumber;
     private List<Long> tripList;
 }

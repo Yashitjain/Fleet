@@ -32,4 +32,10 @@ public class UserController {
         UserResponseDto userResponseDto = userService.getUserResponseById(securityUser.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
     }
+
+    @GetMapping("/balance")
+    public ResponseEntity<Integer> getBalanceOfUser(@AuthenticationPrincipal SecurityUser securityUser){
+        Integer balance = userService.getBalance(securityUser.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(balance);
+    }
 }

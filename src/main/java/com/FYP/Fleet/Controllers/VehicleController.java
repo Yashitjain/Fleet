@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/vehicle")
 public class VehicleController {
@@ -26,9 +28,15 @@ public class VehicleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(vehicle);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<List<VehicleResponseDto>> getAllVehicleOfOwner(@AuthenticationPrincipal SecurityUser securityUser){
+        List<VehicleResponseDto> vehicleList = vehicleService.getAllVehicleOfOwner(securityUser.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleList);
+    }
+
     @GetMapping("/number/{number}")
     public ResponseEntity<VehicleResponseDto> getVehicleByNumber(@PathVariable String number) {
-        VehicleResponseDto vehicle = vehicleService.getVehicleResponseByNumber(number);
+        VehicleResponseDto vehicle = vehicleService.getVehicleByVehicleNumber(number);
         return ResponseEntity.status(HttpStatus.OK).body(vehicle);
     }
 

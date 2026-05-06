@@ -9,5 +9,5 @@ import lombok.*;
 @Setter
 public class VehicleRequestDto {
 
-    private String number;
+    private String vehicleNumber;
 }

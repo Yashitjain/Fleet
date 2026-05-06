@@ -1,5 +1,6 @@
 package com.FYP.Fleet.Service;
 
+import com.FYP.Fleet.Dto.MiniResponseDto.MiniExpenseResponseDto;
 import com.FYP.Fleet.Dto.Request.ExpenseRequestDto;
 import com.FYP.Fleet.Dto.Response.ExpenseResponseDto;
 import com.FYP.Fleet.Models.Expense;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/expense")
@@ -28,7 +31,7 @@ public class ExpenseService {
     }
 
     @Transactional
-    public ExpenseResponseDto createExpense(ExpenseRequestDto expenseRequestDto){
+    public MiniExpenseResponseDto createExpense(ExpenseRequestDto expenseRequestDto){
         Trip trip = tripRepository.findById(expenseRequestDto.getTripId())
                 .orElseThrow(() -> new RuntimeException("Trip not found"));
         Expense expense = Expense.builder()
@@ -42,25 +45,39 @@ public class ExpenseService {
         expense = expenseRepository.save(expense);
         trip.getExpenseList().add(expense);
 
-        return ExpenseResponseDto.builder()
-                .expenseId(expense.getId())
-                .tripId(trip.getId())
-                .driverId(trip.getDriver().getId())
-                .ownerId(trip.getOwner().getId())
-                .ownerName(trip.getOwner().getName())
-                .amount(expense.getAmount())
-                .date(expense.getDate())
-                .source(trip.getSource())
-                .destination(trip.getDestination())
-                .note(expense.getNote())
-                .expenseType(expense.getExpenseType())
-                .build();
+        return getMiniExpenseResponseDto(expense);
     }
 
     public ExpenseResponseDto getExpenseResponseById(long expenseId){
         Expense expense = expenseRepository.findById(expenseId)
                 .orElseThrow(() -> new RuntimeException("Expense Not Found"));
+        return getExpenseResponse(expense);
 
+    }
+
+    public void updateResponse(long expenseId, ExpenseRequestDto expenseRequestDto){
+        Expense expense = getExpenseById(expenseId);
+        if(expenseRequestDto.getExpenseType() != null) expense.setExpenseType(expenseRequestDto.getExpenseType());
+        if(expenseRequestDto.getNote() != null) expense.setNote(expenseRequestDto.getNote());
+        if(expenseRequestDto.getDate() != null) expense.setDate(expenseRequestDto.getDate());
+        if(expenseRequestDto.getAmount() != null) expense.setAmount(expenseRequestDto.getAmount());
+        expenseRepository.save(expense);
+
+    }
+
+    private Expense getExpenseById(long expenseId){
+        return expenseRepository.findById(expenseId).orElseThrow(
+                () -> new RuntimeException("Expense Id Do Not Exist")
+        );
+    }
+
+    public List<MiniExpenseResponseDto> getTripAllExpense(long tripId) {
+        Trip trip = tripService.getTripById(tripId);
+        List<Expense> expenseList = trip.getExpenseList();
+        return expenseList.stream().map(this::getMiniExpenseResponseDto).toList();
+    }
+
+    private ExpenseResponseDto getExpenseResponse(Expense expense){
         return ExpenseResponseDto.builder()
                 .expenseId(expense.getId())
                 .tripId(expense.getTrip().getId())
@@ -76,20 +93,13 @@ public class ExpenseService {
                 .build();
     }
 
-    public void updateResponse(long expenseId, ExpenseRequestDto expenseRequestDto){
-        Expense expense = getExpenseById(expenseId);
-        if(expenseRequestDto.getExpenseType() != null) expense.setExpenseType(expenseRequestDto.getExpenseType());
-        if(expenseRequestDto.getNote() != null) expense.setNote(expenseRequestDto.getNote());
-        if(expenseRequestDto.getDate() != null) expense.setDate(expenseRequestDto.getDate());
-        if(expenseRequestDto.getAmount() != null) expense.setAmount(expenseRequestDto.getAmount());
-        expenseRepository.save(expense);
-
-    }
-
-
-    private Expense getExpenseById(long expenseId){
-        return expenseRepository.findById(expenseId).orElseThrow(
-                () -> new RuntimeException("Expense Id Do Not Exist")
-        );
+    private MiniExpenseResponseDto getMiniExpenseResponseDto(Expense expense){
+        return MiniExpenseResponseDto.builder()
+                .expenseId(expense.getId())
+                .amount(expense.getAmount())
+                .date(expense.getDate())
+                .note(expense.getNote())
+                .expenseType(expense.getExpenseType())
+                .build();
     }
 }
