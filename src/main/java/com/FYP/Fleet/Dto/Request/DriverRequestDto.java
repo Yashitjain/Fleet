@@ -11,6 +11,5 @@ public class DriverRequestDto {
 
     private String name;
     private String phone;
-    private long userId;
 }
 

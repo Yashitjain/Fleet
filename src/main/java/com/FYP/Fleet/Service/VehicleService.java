@@ -25,8 +25,8 @@ public class VehicleService {
         this.userService = userService;
     }
     @Transactional
-    public Vehicle createVehicle(VehicleRequestDto vehicleRequestDto) throws Exception{
-        User owner = userService.getUserById(vehicleRequestDto.getUserId());
+    public Vehicle createVehicle(VehicleRequestDto vehicleRequestDto, long userId) {
+        User owner = userService.getUserById(userId);
         Vehicle createVehicle = Vehicle.builder()
                 .number(vehicleRequestDto.getNumber())
                 .owner(owner)

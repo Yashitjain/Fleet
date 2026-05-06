@@ -11,7 +11,6 @@ public class TripRequestDto {
 
     private long driverId;
     private String vehicleNumber;
-    private long userId;
     private String source;
     private String destination;
     private Integer freightPrice;

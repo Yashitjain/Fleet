@@ -23,8 +23,8 @@ public class DriverService {
     }
 
     @Transactional
-    public Driver createDriver(DriverRequestDto driverRequestDto){
-        User owner = userService.getUserById(driverRequestDto.getUserId());
+    public DriverResponseDto createDriver(DriverRequestDto driverRequestDto, long userId){
+        User owner = userService.getUserById(userId);
         Driver driver = Driver.builder()
                 .name(driverRequestDto.getName())
                 .phone(driverRequestDto.getPhone())
@@ -33,25 +33,29 @@ public class DriverService {
 
         driver = driverRepository.save(driver);
         owner.getDriverList().add(driver);
-        return driver;
+        return getDriverResponse(driver);
     }
 
     public DriverResponseDto getDriverResponseById(long driverId){
         Driver driver = getDriverById(driverId);
-
-        return DriverResponseDto.builder()
-                .id(driverId)
-                .name(driver.getName())
-                .phone(driver.getPhone())
-                .ownerId(driver.getOwner().getId())
-                .ownerName(driver.getOwner().getName())
-                .tripList(driver.getTripList().stream().map(Trip::getId).toList())
-                .build();
+        return getDriverResponse(driver);
     }
 
     public Driver getDriverById(long driverId){
         return driverRepository.findById(driverId).orElseThrow(
                 ()->new RuntimeException("Driver Do Not Exists")
         );
+    }
+
+
+    private DriverResponseDto getDriverResponse(Driver driver){
+        return DriverResponseDto.builder()
+                .id(driver.getId())
+                .name(driver.getName())
+                .phone(driver.getPhone())
+                .ownerId(driver.getOwner().getId())
+                .ownerName(driver.getOwner().getName())
+                .tripList(driver.getTripList().stream().map(Trip::getId).toList())
+                .build();
     }
 }

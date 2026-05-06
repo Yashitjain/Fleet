@@ -3,10 +3,12 @@ package com.FYP.Fleet.Controllers;
 import com.FYP.Fleet.Dto.Request.DriverRequestDto;
 import com.FYP.Fleet.Dto.Response.DriverResponseDto;
 import com.FYP.Fleet.Models.Driver;
+import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,8 +23,8 @@ public class DriverController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Driver> createDriver(@RequestBody DriverRequestDto driverRequestDto){
-        Driver driver = driverService.createDriver(driverRequestDto);
+    public ResponseEntity<DriverResponseDto> createDriver(@RequestBody DriverRequestDto driverRequestDto, @AuthenticationPrincipal SecurityUser securityUser){
+        DriverResponseDto driver = driverService.createDriver(driverRequestDto, securityUser.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(driver);
     }
 

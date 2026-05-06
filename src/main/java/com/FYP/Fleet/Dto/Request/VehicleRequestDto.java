@@ -10,5 +10,4 @@ import lombok.*;
 public class VehicleRequestDto {
 
     private String number;
-    private long userId;
 }

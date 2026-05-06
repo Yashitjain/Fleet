@@ -28,10 +28,10 @@ public class TripService {
     }
 
     @Transactional
-    public TripResponseDto  createTrip(TripRequestDto tripRequestDto){
+    public TripResponseDto  createTrip(TripRequestDto tripRequestDto, long userId){
         Driver driver = driverService.getDriverById(tripRequestDto.getDriverId());
         Vehicle vehicle = vehicleService.getVehicleByNumber(tripRequestDto.getVehicleNumber());
-        User owner = userService.getUserById(tripRequestDto.getUserId());
+        User owner = userService.getUserById(userId);
 
         Trip trip = Trip.builder()
                 .driver(driver)

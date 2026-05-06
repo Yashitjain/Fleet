@@ -23,14 +23,12 @@ public class TripController {
 
     @PostMapping("/")
     public ResponseEntity<TripResponseDto> createTrip(@RequestBody TripRequestDto tripRequestDto, @AuthenticationPrincipal SecurityUser securityUser){
-        System.out.println(securityUser.getId());
-        TripResponseDto trip = tripService.createTrip(tripRequestDto);
+        TripResponseDto trip = tripService.createTrip(tripRequestDto, securityUser.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(trip);
     }
 
     @GetMapping("/{tripId}")
-    public ResponseEntity<TripResponseDto> getTrip(@PathVariable long tripId, @AuthenticationPrincipal SecurityUser securityUser){
-        System.out.println(securityUser.getId());
+    public ResponseEntity<TripResponseDto> getTrip(@PathVariable long tripId){
         TripResponseDto trip = tripService.getTripResponseById(tripId);
         return ResponseEntity.status(HttpStatus.OK).body(trip);
     }

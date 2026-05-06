@@ -8,6 +8,7 @@ import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Models.Vehicle;
 import com.FYP.Fleet.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,19 +21,25 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(UserRequestDto userRequestDto){
-        User createuser = User.builder()
-                .name(userRequestDto.getName())
-                .phone(userRequestDto.getPhone())
-                .password(userRequestDto.getPassword())
-                .build();
-
-        createuser = userRepository.save(createuser);
-        return createuser;
+    public UserResponseDto createUser(UserRequestDto userRequestDto, long userId){
+        User user = userRepository.findById(userId).orElseThrow(()->new  UsernameNotFoundException("UserId is invalid"));
+        user.setName(userRequestDto.getName());
+        user.setPhone(userRequestDto.getPhone());
+        user = userRepository.save(user);
+        return getUserResponse(user);
     }
 
     public UserResponseDto getUserResponseById(long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User do not exist"));
+        return getUserResponse(user);
+
+    }
+
+    public User getUserById(long userId){
+        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User do not exist"));
+    }
+
+    private UserResponseDto getUserResponse(User user){
         return UserResponseDto.builder()
                 .name(user.getName())
                 .phone(user.getPhone())
@@ -40,11 +47,5 @@ public class UserService {
                 .driverList(user.getDriverList().stream().map(Driver::getName).toList())
                 .tripList(user.getTripList().stream().map(Trip::getId).toList())
                 .build();
-
-    }
-
-
-    public User getUserById(long userId){
-        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User do not exist"));
     }
 }
