@@ -35,7 +35,7 @@ public class Vehicle {
     @ManyToOne()
     @JoinColumn(name = "user_id")
     @JsonBackReference
-    private User owner;
+    private User user;
 
     @OneToMany(mappedBy = "vehicle")
     private List<Trip> tripList = new ArrayList<>();

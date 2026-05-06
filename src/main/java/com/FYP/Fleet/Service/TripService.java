@@ -3,6 +3,8 @@ package com.FYP.Fleet.Service;
 import com.FYP.Fleet.Dto.MiniResponseDto.MiniTripResponseDto;
 import com.FYP.Fleet.Dto.Request.TripRequestDto;
 import com.FYP.Fleet.Dto.Response.TripResponseDto;
+import com.FYP.Fleet.Dto.Response.TripStatusResponseDto;
+import com.FYP.Fleet.Dto.Response.TripSummaryResponseDto;
 import com.FYP.Fleet.Enums.ExpenseType;
 import com.FYP.Fleet.Enums.Status;
 import com.FYP.Fleet.Models.*;
@@ -39,7 +41,7 @@ public class TripService {
         Trip trip = Trip.builder()
                 .driver(driver)
                 .vehicle(vehicle)
-                .owner(owner)
+                .user(owner)
                 .source(tripRequestDto.getSource())
                 .destination(tripRequestDto.getDestination())
                 .freightPrice(tripRequestDto.getFreightPrice())
@@ -66,7 +68,7 @@ public class TripService {
 
     }
 
-    public String getTripSummaryById(long tripId){
+    public TripSummaryResponseDto getTripSummaryById(long tripId){
         Trip trip = getTripById(tripId);
 
         int freightPrice = trip.getFreightPrice();
@@ -78,13 +80,15 @@ public class TripService {
         int totalExpense = dieselExpense + tollExpense + driverExpense + otherExpense;
 
         int profit = freightPrice - totalExpense;
-        return "Freight Price: " + freightPrice +
-                "\n\t Diesel Expense: " + dieselExpense +
-                "\n\t Toll Expense: " + tollExpense +
-                "\n\t Driver Expense: " + driverExpense +
-                "\n\t Other Expense: " + otherExpense +
-                "\nTotal Expense: " + totalExpense +
-                "\n\nProfit: " + profit;
+        return TripSummaryResponseDto.builder()
+                .freightPrice(freightPrice)
+                .dieselExpense(dieselExpense)
+                .tollExpense(tollExpense)
+                .driverExpense(driverExpense)
+                .otherExpense(otherExpense)
+                .totalExpense(totalExpense)
+                .profit(profit)
+                .build();
     }
 
     public Trip getTripById(long tripId){
@@ -112,9 +116,9 @@ public class TripService {
     }
 
 
-    public List<MiniTripResponseDto> getTripsOfOwner(Long ownerId) {
+    public List<MiniTripResponseDto> getTripsOfOwner(Long userId) {
         List<Trip> trips = tripRepository.findAll();
-        return trips.stream().filter(t -> t.getOwner().getId().equals(ownerId)).map(this::getMiniTripResponse).toList();
+        return trips.stream().filter(t -> t.getUser().getId().equals(userId)).map(this::getMiniTripResponse).toList();
 
     }
 
@@ -123,8 +127,8 @@ public class TripService {
                 .id(trip.getId())
                 .vehicleNumber(trip.getVehicle().getNumber())
                 .driverId(trip.getDriver().getId())
-                .ownerId(trip.getOwner().getId())
-                .ownerName(trip.getOwner().getName())
+                .userId(trip.getUser().getId())
+                .userName(trip.getUser().getName())
                 .source(trip.getSource())
                 .destination(trip.getDestination())
                 .freightPrice(trip.getFreightPrice())
@@ -155,9 +159,13 @@ public class TripService {
                 .build();
     }
 
-    public void closeTrip(long tripId) {
+    public TripStatusResponseDto closeTrip(long tripId) {
         Trip trip = getTripById(tripId);
         trip.setStatus(Status.COMPLETED);
-        tripRepository.save(trip);
+        trip = tripRepository.save(trip);
+        return TripStatusResponseDto.builder()
+                .tripId(tripId)
+                .status(trip.getStatus())
+                .build();
     }
 }

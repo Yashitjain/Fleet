@@ -13,7 +13,7 @@ public class DriverResponseDto {
     private long id;
     private String name;
     private String phone;
-    private Long ownerId;
+    private Long userId;
     private String ownerName;
     private List<Long> tripList;
 }

@@ -14,8 +14,8 @@ public class ExpenseResponseDto {
     private long expenseId;
     private long tripId;
     private long driverId;
-    private long ownerId;
-    private String ownerName;
+    private long userId;
+    private String userName;
     private int amount;
     private LocalDate date;
     private String source;

@@ -27,15 +27,15 @@ public class DriverService {
 
     @Transactional
     public DriverResponseDto createDriver(DriverRequestDto driverRequestDto, long userId){
-        User owner = userService.getUserById(userId);
+        User user = userService.getUserById(userId);
         Driver driver = Driver.builder()
                 .name(driverRequestDto.getName())
                 .phone(driverRequestDto.getPhone())
-                .owner(owner)
+                .user(user)
                 .build();
 
         driver = driverRepository.save(driver);
-        owner.getDriverList().add(driver);
+        user.getDriverList().add(driver);
         return getDriverResponse(driver);
     }
 
@@ -52,7 +52,7 @@ public class DriverService {
 
     public List<DriverResponseDto> getAllDriverOfOwner(Long ownerId) {
         List<Driver> driverList = driverRepository.findAll();
-        return driverList.stream().filter(d -> d.getOwner().getId().equals(ownerId)).map(this :: getDriverResponse).toList();
+        return driverList.stream().filter(d -> d.getUser().getId().equals(ownerId)).map(this :: getDriverResponse).toList();
     }
 
     private DriverResponseDto getDriverResponse(Driver driver){
@@ -60,8 +60,8 @@ public class DriverService {
                 .id(driver.getId())
                 .name(driver.getName())
                 .phone(driver.getPhone())
-                .ownerId(driver.getOwner().getId())
-                .ownerName(driver.getOwner().getName())
+                .userId(driver.getUser().getId())
+                .ownerName(driver.getUser().getName())
                 .tripList(driver.getTripList().stream().map(Trip::getId).toList())
                 .build();
     }

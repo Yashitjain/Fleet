@@ -44,17 +44,17 @@ public class User {
     @NotNull
     private String password;
 
-    @OneToMany( mappedBy = "owner", cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL)
     @Builder.Default
     @JsonManagedReference
     private List<Vehicle> vehicleList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @Builder.Default
     @JsonManagedReference
     private List<Driver> driverList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "user")
     @Builder.Default
     @JsonManagedReference
     private List<Trip> tripList = new ArrayList<>();

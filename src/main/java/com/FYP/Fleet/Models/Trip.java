@@ -32,9 +32,9 @@ public class Trip {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "user_id")
     @JsonBackReference
-    private User owner;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "driver_id")

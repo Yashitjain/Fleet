@@ -37,7 +37,7 @@ public class Driver {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
-    private User owner;
+    private User user;
 
     @OneToMany(mappedBy = "driver")
     @Builder.Default

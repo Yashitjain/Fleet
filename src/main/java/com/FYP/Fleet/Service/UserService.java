@@ -8,7 +8,6 @@ import com.FYP.Fleet.Models.Driver;
 import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Models.Vehicle;
-import com.FYP.Fleet.Repository.TripRepository;
 import com.FYP.Fleet.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

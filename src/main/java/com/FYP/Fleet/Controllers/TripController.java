@@ -2,9 +2,9 @@ package com.FYP.Fleet.Controllers;
 
 import com.FYP.Fleet.Dto.MiniResponseDto.MiniTripResponseDto;
 import com.FYP.Fleet.Dto.Request.TripRequestDto;
-import com.FYP.Fleet.Dto.Response.ExpenseResponseDto;
 import com.FYP.Fleet.Dto.Response.TripResponseDto;
-import com.FYP.Fleet.Enums.Status;
+import com.FYP.Fleet.Dto.Response.TripStatusResponseDto;
+import com.FYP.Fleet.Dto.Response.TripSummaryResponseDto;
 import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Service.TripService;
 import org.springframework.http.HttpStatus;
@@ -37,8 +37,8 @@ public class TripController {
     }
 
     @GetMapping("/summary/{tripId}")
-    public ResponseEntity<String> getTripSummary(@PathVariable long tripId){
-        String summary = tripService.getTripSummaryById(tripId);
+    public ResponseEntity<TripSummaryResponseDto> getTripSummary(@PathVariable long tripId){
+        TripSummaryResponseDto summary = tripService.getTripSummaryById(tripId);
         return ResponseEntity.status(HttpStatus.OK).body(summary);
     }
 
@@ -55,9 +55,9 @@ public class TripController {
     }
 
     @PatchMapping("/status/{tripId}/close")
-    public HttpStatus cloeTrip(@PathVariable long tripId){
-        tripService.closeTrip(tripId);
-        return HttpStatus.NO_CONTENT;
+    public ResponseEntity<TripStatusResponseDto> closeTrip(@PathVariable long tripId){
+        TripStatusResponseDto responseDto = tripService.closeTrip(tripId);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
 }

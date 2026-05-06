@@ -28,15 +28,15 @@ public class VehicleService {
     }
     @Transactional
     public Vehicle createVehicle(VehicleRequestDto vehicleRequestDto, long userId) {
-        User owner = userService.getUserById(userId);
+        User user = userService.getUserById(userId);
         Vehicle createVehicle = Vehicle.builder()
                 .number(vehicleRequestDto.getVehicleNumber())
-                .owner(owner)
+                .user(user)
                 .build();
 
         createVehicle = vehicleRepository.save(createVehicle);
-        owner.getVehicleList().add(createVehicle);
-        userRepository.save(owner);
+        user.getVehicleList().add(createVehicle);
+        userRepository.save(user);
 
         return createVehicle;
 
@@ -65,9 +65,9 @@ public class VehicleService {
     }
 
 
-    public List<VehicleResponseDto> getAllVehicleOfOwner(Long ownerId) {
+    public List<VehicleResponseDto> getAllVehicleOfOwner(Long userId) {
         List<Vehicle> vehicleList = vehicleRepository.findAll();
-        return vehicleList.stream().filter(v -> v.getOwner().getId().equals(ownerId)).map(this::getVehicleResponse).toList();
+        return vehicleList.stream().filter(v -> v.getUser().getId().equals(userId)).map(this::getVehicleResponse).toList();
     }
 
     private VehicleResponseDto getVehicleResponse(Vehicle vehicle){

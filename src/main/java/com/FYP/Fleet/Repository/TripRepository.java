@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
-    List<Trip> findAllByOwnerId(long ownerId);
 }
