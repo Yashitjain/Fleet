@@ -1,13 +1,13 @@
 package com.FYP.Fleet.Models;
 
 import com.FYP.Fleet.Enums.Status;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,6 +17,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Trip {
 
     @Id
@@ -30,18 +32,18 @@ public class Trip {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
-    @JsonManagedReference
-    private User owner;
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "driver_id")
-    @JsonIgnoreProperties("user")
+    @JsonBackReference
     private Driver driver;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
-    @JsonIgnoreProperties("user")
+    @JsonBackReference
     private Vehicle vehicle;
 
     @NotNull
@@ -59,10 +61,11 @@ public class Trip {
     private LocalDate endDate;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private Status status;
 
     @OneToMany(mappedBy = "trip")
-    @JsonIgnoreProperties("trip")
     @Builder.Default
     private List<Expense> expenseList = new ArrayList<>();
 

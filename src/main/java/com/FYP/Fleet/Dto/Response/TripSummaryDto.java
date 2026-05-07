@@ -1,26 +1,25 @@
-package com.FYP.Fleet.Dto;
+package com.FYP.Fleet.Dto.Response;
 
-import com.FYP.Fleet.Models.Expense;
+import com.FYP.Fleet.Enums.Status;
 import lombok.*;
 
-import java.math.BigInteger;
-import java.security.PrivateKey;
 import java.time.LocalDate;
-import java.util.List;
+
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class TripDto {
-
-    private long driverId;
+public class TripSummaryDto {
+    private long tripId;
     private String vehicleNumber;
-    private long userId;
     private String source;
     private String destination;
-    private Integer freightPrice;
     private LocalDate startDate;
     private LocalDate endDate;
+    private int freightPrice;
+    private int totalExpense;
+    private int profit;
+    private Status status;
 }

@@ -1,6 +1,7 @@
 package com.FYP.Fleet.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -29,30 +30,33 @@ public class User {
     private Long id;
 
     @Column(name = "name")
-    @NotNull
     private String name;
 
     @Column(name = "phone")
-    @NotNull
     private String phone;
+
+    @Column(name = "username", unique = true)
+    @NotNull
+    private String username;
+
 
     @Column(name = "password")
     @NotNull
     private String password;
 
     @OneToMany( mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("user")
     @Builder.Default
+    @JsonManagedReference
     private List<Vehicle> vehicleList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("user")
     @Builder.Default
+    @JsonManagedReference
     private List<Driver> driverList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "owner")
-    @JsonIgnoreProperties("owner")
+    @OneToMany(mappedBy = "user")
     @Builder.Default
+    @JsonManagedReference
     private List<Trip> tripList = new ArrayList<>();
 
 

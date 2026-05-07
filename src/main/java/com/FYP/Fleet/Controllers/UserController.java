@@ -1,17 +1,19 @@
 package com.FYP.Fleet.Controllers;
 
-import com.FYP.Fleet.Dto.UserDto;
+import com.FYP.Fleet.Dto.Request.UserRequestDto;
+import com.FYP.Fleet.Dto.Response.UserBalanceResponseDto;
+import com.FYP.Fleet.Dto.Response.UserResponseDto;
+import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
-
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -20,15 +22,21 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("api/v1/user")
-    public ResponseEntity<User> createUser(@RequestBody UserDto userDto){
-        User user = userService.createUser(userDto);
+    @PostMapping("/")
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto, @AuthenticationPrincipal SecurityUser securityUser){
+        UserResponseDto user = userService.createUser(userRequestDto, securityUser.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @GetMapping("api/v1/user/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable long userId){
-        User user = userService.getUserById(userId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    @GetMapping("/")
+    public ResponseEntity<UserResponseDto> getUserById(@AuthenticationPrincipal SecurityUser securityUser){
+        UserResponseDto userResponseDto = userService.getUserResponseById(securityUser.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
+    }
+
+    @GetMapping("/balance")
+    public ResponseEntity<UserBalanceResponseDto> getBalanceOfUser(@AuthenticationPrincipal SecurityUser securityUser){
+        UserBalanceResponseDto balance = userService.getBalance(securityUser.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(balance);
     }
 }

@@ -1,16 +1,21 @@
 package com.FYP.Fleet.Controllers;
 
-import com.FYP.Fleet.Dto.DriverDto;
+import com.FYP.Fleet.Dto.Request.DriverRequestDto;
+import com.FYP.Fleet.Dto.Response.DriverResponseDto;
 import com.FYP.Fleet.Models.Driver;
-import com.FYP.Fleet.Repository.DriverRepository;
+import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Service.DriverService;
+import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1/driver")
+@RequestMapping("/driver")
 public class DriverController {
 
     public final DriverService driverService;
@@ -21,14 +26,20 @@ public class DriverController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Driver> createDriver(@RequestBody DriverDto driverDto){
-        Driver driver = driverService.createDriver(driverDto);
+    public ResponseEntity<DriverResponseDto> createDriver(@RequestBody DriverRequestDto driverRequestDto, @AuthenticationPrincipal SecurityUser securityUser){
+        DriverResponseDto driver = driverService.createDriver(driverRequestDto, securityUser.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(driver);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<List<DriverResponseDto>> getAllDriverOfOwner(@AuthenticationPrincipal SecurityUser securityUser){
+        List<DriverResponseDto> driverList = driverService.getAllDriverOfOwner(securityUser.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(driverList);
+    }
+
     @GetMapping("/{driverId}")
-    public ResponseEntity<Driver> getDriverById(@PathVariable long driverId){
-        Driver driver = driverService.getDriverById(driverId);
+    public ResponseEntity<DriverResponseDto> getDriverById(@PathVariable long driverId){
+        DriverResponseDto driver = driverService.getDriverResponseById(driverId);
         return ResponseEntity.status(HttpStatus.OK).body(driver);
     }
 }

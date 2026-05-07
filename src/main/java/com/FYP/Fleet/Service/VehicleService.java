@@ -1,14 +1,19 @@
 package com.FYP.Fleet.Service;
 
-import com.FYP.Fleet.Dto.VehicleDto;
+import com.FYP.Fleet.Dto.Request.VehicleRequestDto;
+import com.FYP.Fleet.Dto.Response.VehicleResponseDto;
+import com.FYP.Fleet.Models.Owner;
+import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Models.Vehicle;
 import com.FYP.Fleet.Repository.UserRepository;
 import com.FYP.Fleet.Repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.List;
 
 @Service
 public class VehicleService {
@@ -16,21 +21,26 @@ public class VehicleService {
     private final VehicleRepository vehicleRepository;
     private final UserRepository userRepository;
     private final UserService userService;
+    private final OwnerService ownerService;
 
     @Autowired
-    VehicleService(VehicleRepository vehicleRepository, UserRepository userRepository, UserService userService){
+    VehicleService(VehicleRepository vehicleRepository, UserRepository userRepository, UserService userService, OwnerService ownerService){
         this.vehicleRepository = vehicleRepository;
         this.userRepository = userRepository;
         this.userService = userService;
+        this.ownerService = ownerService;
     }
-
-    public Vehicle createVehicle(VehicleDto vehicleDto) throws Exception{
-        User user = userService.getUserById(vehicleDto.getUserId());
+    @Transactional
+    public Vehicle createVehicle(VehicleRequestDto vehicleRequestDto, long userId) throws UserPrincipalNotFoundException {
+        User user = userService.getUserById(userId);
         Vehicle createVehicle = Vehicle.builder()
-                .number(vehicleDto.getNumber())
+                .number(vehicleRequestDto.getVehicleNumber())
                 .user(user)
                 .build();
 
+        if(vehicleRequestDto.getOwnerId() != null){
+            Owner owner = ownerService.getOwnerById(vehicleRequestDto.getOwnerId());
+        }
         createVehicle = vehicleRepository.save(createVehicle);
         user.getVehicleList().add(createVehicle);
         userRepository.save(user);
@@ -39,14 +49,49 @@ public class VehicleService {
 
     }
 
-    public Vehicle getVehicleByNumber(String number) throws RuntimeException{
-        Optional<Vehicle> vehicle = vehicleRepository.findByNumber(number);
-        if(vehicle.isEmpty()){
-            throw new RuntimeException("Vehicle Do Not Exist");
-        }
+    public VehicleResponseDto getVehicleByVehicleNumber(String number){
+        Vehicle vehicle = getVehicleByNumber(number);
+        return getVehicleResponse(vehicle);
 
-        return vehicle.get();
+    }
+
+    public VehicleResponseDto updateVehicle( long vehicleId, VehicleRequestDto vehicleRequestDto) throws UserPrincipalNotFoundException {
+        Vehicle vehicle = getVehicleById(vehicleId);
+        if(vehicleRequestDto.getOwnerId() != null){
+            Owner owner = ownerService.getOwnerById(vehicleRequestDto.getOwnerId());
+            vehicle.setOwner(owner);
+        }
+        if(vehicleRequestDto.getVehicleNumber() != null){
+            vehicle.setNumber(vehicleRequestDto.getVehicleNumber());
+        }
+        vehicle = vehicleRepository.save(vehicle);
+        return getVehicleResponse(vehicle);
+    }
+
+    public Vehicle getVehicleById(long id){
+        return vehicleRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("Vehicle Id Do Not Exist")
+        );
+    }
+
+    public Vehicle getVehicleByNumber(String number){
+        return vehicleRepository.findByNumber(number).orElseThrow(
+                ()-> new RuntimeException("Vehicle Number Do Not Exist")
+        );
     }
 
 
+    public List<VehicleResponseDto> getAllVehicleOfOwner(Long userId) {
+        List<Vehicle> vehicleList = vehicleRepository.findAll();
+        return vehicleList.stream().filter(v -> v.getUser().getId().equals(userId)).map(this::getVehicleResponse).toList();
+    }
+
+    private VehicleResponseDto getVehicleResponse(Vehicle vehicle){
+        return VehicleResponseDto.builder()
+                .id(vehicle.getId())
+                .vehicleNumber(vehicle.getNumber())
+                .tripList(vehicle.getTripList().stream().map(Trip::getId).toList())
+                .ownerId(vehicle.getOwner().getId())
+                .build();
+    }
 }

@@ -1,0 +1,42 @@
+package com.FYP.Fleet.Models;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "owner")
+@Getter
+@Setter
+@NoArgsConstructor
+public class Owner {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "owner_seq")
+    @SequenceGenerator(
+            name = "owner_seq",
+            sequenceName = "owner_seq",
+            initialValue = 1,
+            allocationSize = 50
+    )
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String phone;
+
+    // Which fleet operator manages this owner
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    // All trucks belonging to this owner
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Vehicle> vehicles = new ArrayList<>();
+}

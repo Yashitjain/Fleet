@@ -1,14 +1,21 @@
 package com.FYP.Fleet.Controllers;
 
-import com.FYP.Fleet.Dto.TripDto;
-import com.FYP.Fleet.Models.Trip;
+import com.FYP.Fleet.Dto.MiniResponseDto.MiniTripResponseDto;
+import com.FYP.Fleet.Dto.Request.TripRequestDto;
+import com.FYP.Fleet.Dto.Response.TripResponseDto;
+import com.FYP.Fleet.Dto.Response.TripStatusResponseDto;
+import com.FYP.Fleet.Dto.Response.TripSummaryResponseDto;
+import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Service.TripService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1/trip")
+@RequestMapping("/trip")
 public class TripController {
 
     public final TripService tripService;
@@ -18,14 +25,39 @@ public class TripController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Trip> createTrip(@RequestBody TripDto tripDto){
-        Trip trip = tripService.createTrip(tripDto);
+    public ResponseEntity<TripResponseDto> createTrip(@RequestBody TripRequestDto tripRequestDto, @AuthenticationPrincipal SecurityUser securityUser){
+        TripResponseDto trip = tripService.createTrip(tripRequestDto, securityUser.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(trip);
     }
 
     @GetMapping("/{tripId}")
-    public ResponseEntity<Trip> getTrip(@PathVariable long tripId){
-        Trip trip = tripService.getTripById(tripId);
+    public ResponseEntity<TripResponseDto> getTrip(@PathVariable long tripId){
+        TripResponseDto trip = tripService.getTripResponseById(tripId);
         return ResponseEntity.status(HttpStatus.OK).body(trip);
     }
+
+    @GetMapping("/summary/{tripId}")
+    public ResponseEntity<TripSummaryResponseDto> getTripSummary(@PathVariable long tripId){
+        TripSummaryResponseDto summary = tripService.getTripSummaryById(tripId);
+        return ResponseEntity.status(HttpStatus.OK).body(summary);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<MiniTripResponseDto>> getAllTripsOfUser(@AuthenticationPrincipal SecurityUser securityUser){
+        List<MiniTripResponseDto> trips = tripService.getTripsOfOwner(securityUser.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(trips);
+    }
+
+    @GetMapping("/status/{tripId}")
+    public ResponseEntity<String> getTripStatus(@PathVariable long tripId){
+        String status = tripService.getTripStatus(tripId);
+        return ResponseEntity.status(HttpStatus.OK).body(status);
+    }
+
+    @PatchMapping("/status/{tripId}/close")
+    public ResponseEntity<TripStatusResponseDto> closeTrip(@PathVariable long tripId){
+        TripStatusResponseDto responseDto = tripService.closeTrip(tripId);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
 }

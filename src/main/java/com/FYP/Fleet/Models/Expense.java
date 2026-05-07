@@ -1,22 +1,20 @@
 package com.FYP.Fleet.Models;
 
 import com.FYP.Fleet.Enums.ExpenseType;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity(name = "Expense")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Expense {
 
     @Id
@@ -31,14 +29,19 @@ public class Expense {
 
     @ManyToOne
     @JoinColumn(name = "trip_id")
-    @JsonIgnoreProperties("expenseList")
+    @JsonBackReference
     private Trip trip;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private ExpenseType expenseType;
 
     private String note;
 
     @NotNull
     private LocalDate date;
+
+    @NotNull
+    private Integer amount;
 }

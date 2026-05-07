@@ -1,17 +1,21 @@
 package com.FYP.Fleet.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Driver")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Driver {
 
     @Id
@@ -32,6 +36,11 @@ public class Driver {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties("driverList")
+    @JsonBackReference
     private User user;
+
+    @OneToMany(mappedBy = "driver")
+    @Builder.Default
+    @JsonManagedReference
+    private List<Trip> tripList = new ArrayList<>();
 }

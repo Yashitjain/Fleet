@@ -1,13 +1,17 @@
 package com.FYP.Fleet.Service;
 
-import com.FYP.Fleet.Dto.DriverDto;
+import com.FYP.Fleet.Dto.Request.DriverRequestDto;
+import com.FYP.Fleet.Dto.Response.DriverResponseDto;
 import com.FYP.Fleet.Models.Driver;
+import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
+import com.FYP.Fleet.Models.Vehicle;
 import com.FYP.Fleet.Repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class DriverService {
@@ -21,23 +25,45 @@ public class DriverService {
         this.userService = userService;
     }
 
-    public Driver createDriver(DriverDto driverDto){
-        User user = userService.getUserById(driverDto.getUserId());
+    @Transactional
+    public DriverResponseDto createDriver(DriverRequestDto driverRequestDto, long userId){
+        User user = userService.getUserById(userId);
         Driver driver = Driver.builder()
-                .name(driverDto.getName())
-                .phone(driverDto.getPhone())
+                .name(driverRequestDto.getName())
+                .phone(driverRequestDto.getPhone())
                 .user(user)
                 .build();
 
         driver = driverRepository.save(driver);
-        return driver;
+        user.getDriverList().add(driver);
+        return getDriverResponse(driver);
+    }
+
+    public DriverResponseDto getDriverResponseById(long driverId){
+        Driver driver = getDriverById(driverId);
+        return getDriverResponse(driver);
     }
 
     public Driver getDriverById(long driverId){
-        Optional<Driver> driver = driverRepository.findById(driverId);
-        if(driver.isEmpty()){
-            throw new RuntimeException("Driver Do Not Exists");
-        }
-        return driver.get();
+        return driverRepository.findById(driverId).orElseThrow(
+                ()->new RuntimeException("Driver Do Not Exists")
+        );
     }
+
+    public List<DriverResponseDto> getAllDriverOfOwner(Long ownerId) {
+        List<Driver> driverList = driverRepository.findAll();
+        return driverList.stream().filter(d -> d.getUser().getId().equals(ownerId)).map(this :: getDriverResponse).toList();
+    }
+
+    private DriverResponseDto getDriverResponse(Driver driver){
+        return DriverResponseDto.builder()
+                .id(driver.getId())
+                .name(driver.getName())
+                .phone(driver.getPhone())
+                .userId(driver.getUser().getId())
+                .ownerName(driver.getUser().getName())
+                .tripList(driver.getTripList().stream().map(Trip::getId).toList())
+                .build();
+    }
+
 }
