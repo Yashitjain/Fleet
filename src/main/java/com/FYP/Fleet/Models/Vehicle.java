@@ -37,6 +37,10 @@ public class Vehicle {
     @JsonBackReference
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", nullable = true)
+    private Owner owner;
+
     @OneToMany(mappedBy = "vehicle")
     private List<Trip> tripList = new ArrayList<>();
 

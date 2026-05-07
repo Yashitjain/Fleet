@@ -2,12 +2,11 @@ package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.MiniResponseDto.MiniTripResponseDto;
 import com.FYP.Fleet.Dto.Request.UserRequestDto;
+import com.FYP.Fleet.Dto.Response.UserBalanceResponseDto;
 import com.FYP.Fleet.Dto.Response.UserResponseDto;
+import com.FYP.Fleet.Enums.ExpenseType;
 import com.FYP.Fleet.Enums.Status;
-import com.FYP.Fleet.Models.Driver;
-import com.FYP.Fleet.Models.Trip;
-import com.FYP.Fleet.Models.User;
-import com.FYP.Fleet.Models.Vehicle;
+import com.FYP.Fleet.Models.*;
 import com.FYP.Fleet.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -57,8 +56,37 @@ public class UserService {
                 .build();
     }
 
-    public Integer getBalance(Long ownerId) {
-        List<MiniTripResponseDto > tripList = tripService.getTripsOfOwner(ownerId);
-        return tripList.stream().filter(t->t.getStatus().equals(Status.COMPLETED)).mapToInt(MiniTripResponseDto::getProfit).sum();
+    public UserBalanceResponseDto getBalance(Long userId) {
+        List<Trip> tripList = tripService.getCompletedTripsByUserId(userId);
+        List<MiniTripResponseDto> miniTripResponseDos = tripList.stream().map(tripService::getMiniTripResponse).toList();
+
+        Long totalFreightPrice = tripList.stream().mapToLong(Trip::getFreightPrice).sum();
+        Long dieselExpense = tripList.stream().mapToLong(t -> sumByType(t.getExpenseList(), ExpenseType.DIESEL)).sum();
+        Long tollExpense = tripList.stream().mapToLong(t -> sumByType(t.getExpenseList(), ExpenseType.TOLL)).sum();
+        Long driverExpense = tripList.stream().mapToLong(t -> sumByType(t.getExpenseList(), ExpenseType.DRIVER)).sum();
+        Long otherExpense = tripList.stream().mapToLong(t -> sumByType(t.getExpenseList(), ExpenseType.OTHER)).sum();
+        Long totalExpense = dieselExpense + tollExpense + driverExpense + otherExpense;
+        Long balance = totalFreightPrice - totalExpense;
+
+        return UserBalanceResponseDto.builder()
+                .totalTrips(tripList.size())
+                .totalFreightEarned(totalFreightPrice)
+                .dieselExpense(dieselExpense)
+                .tollExpense(tollExpense)
+                .driverExpense(driverExpense)
+                .otherExpense(otherExpense)
+                .totalExpenses(totalExpense)
+                .balance(balance)
+                .trips(miniTripResponseDos)
+                .build();
+
     }
+
+    private Long sumByType(List<Expense> expenses, ExpenseType type) {
+        return expenses.stream()
+                .filter(e -> e.getExpenseType() == type)
+                .mapToLong(Expense::getAmount)
+                .sum();
+    }
+
 }

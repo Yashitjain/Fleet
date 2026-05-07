@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 @RestController
@@ -44,5 +45,11 @@ public class VehicleController {
     public ResponseEntity<Vehicle> getVehicleById(@PathVariable long id) {
         Vehicle vehicle = vehicleService.getVehicleById(id);
         return ResponseEntity.status(HttpStatus.OK).body(vehicle);
+    }
+
+    @PatchMapping("/{vehicleId}")
+    public ResponseEntity<VehicleResponseDto> updateVehicle(@PathVariable long vehicleId,@RequestBody VehicleRequestDto vehicleRequestDto) throws UserPrincipalNotFoundException {
+        VehicleResponseDto responseDto = vehicleService.updateVehicle(vehicleId, vehicleRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 }

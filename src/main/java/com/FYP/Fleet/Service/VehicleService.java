@@ -2,6 +2,7 @@ package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.Request.VehicleRequestDto;
 import com.FYP.Fleet.Dto.Response.VehicleResponseDto;
+import com.FYP.Fleet.Models.Owner;
 import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
 import com.FYP.Fleet.Models.Vehicle;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 @Service
@@ -19,21 +21,26 @@ public class VehicleService {
     private final VehicleRepository vehicleRepository;
     private final UserRepository userRepository;
     private final UserService userService;
+    private final OwnerService ownerService;
 
     @Autowired
-    VehicleService(VehicleRepository vehicleRepository, UserRepository userRepository, UserService userService){
+    VehicleService(VehicleRepository vehicleRepository, UserRepository userRepository, UserService userService, OwnerService ownerService){
         this.vehicleRepository = vehicleRepository;
         this.userRepository = userRepository;
         this.userService = userService;
+        this.ownerService = ownerService;
     }
     @Transactional
-    public Vehicle createVehicle(VehicleRequestDto vehicleRequestDto, long userId) {
+    public Vehicle createVehicle(VehicleRequestDto vehicleRequestDto, long userId) throws UserPrincipalNotFoundException {
         User user = userService.getUserById(userId);
         Vehicle createVehicle = Vehicle.builder()
                 .number(vehicleRequestDto.getVehicleNumber())
                 .user(user)
                 .build();
 
+        if(vehicleRequestDto.getOwnerId() != null){
+            Owner owner = ownerService.getOwnerById(vehicleRequestDto.getOwnerId());
+        }
         createVehicle = vehicleRepository.save(createVehicle);
         user.getVehicleList().add(createVehicle);
         userRepository.save(user);
@@ -42,14 +49,23 @@ public class VehicleService {
 
     }
 
-    public VehicleResponseDto getVehicleByVehicleNumber(String number) throws RuntimeException{
+    public VehicleResponseDto getVehicleByVehicleNumber(String number){
         Vehicle vehicle = getVehicleByNumber(number);
-        return VehicleResponseDto.builder()
-                .id(vehicle.getId())
-                .vehicleNumber(vehicle.getNumber())
-                .tripList(vehicle.getTripList().stream().map(Trip::getId).toList())
-                .build();
+        return getVehicleResponse(vehicle);
 
+    }
+
+    public VehicleResponseDto updateVehicle( long vehicleId, VehicleRequestDto vehicleRequestDto) throws UserPrincipalNotFoundException {
+        Vehicle vehicle = getVehicleById(vehicleId);
+        if(vehicleRequestDto.getOwnerId() != null){
+            Owner owner = ownerService.getOwnerById(vehicleRequestDto.getOwnerId());
+            vehicle.setOwner(owner);
+        }
+        if(vehicleRequestDto.getVehicleNumber() != null){
+            vehicle.setNumber(vehicleRequestDto.getVehicleNumber());
+        }
+        vehicle = vehicleRepository.save(vehicle);
+        return getVehicleResponse(vehicle);
     }
 
     public Vehicle getVehicleById(long id){
@@ -75,6 +91,7 @@ public class VehicleService {
                 .id(vehicle.getId())
                 .vehicleNumber(vehicle.getNumber())
                 .tripList(vehicle.getTripList().stream().map(Trip::getId).toList())
+                .ownerId(vehicle.getOwner().getId())
                 .build();
     }
 }

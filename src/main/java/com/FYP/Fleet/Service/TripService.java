@@ -135,6 +135,8 @@ public class TripService {
                 .startDate(trip.getStartDate())
                 .endDate(trip.getEndDate())
                 .expenseList(trip.getExpenseList())
+                .totalExpense(getTotalExpenseOfTrip(trip))
+                .profit(getTotalProfitOfTrip(trip))
                 .status(trip.getStatus())
                 .build();
     }
@@ -144,16 +146,15 @@ public class TripService {
         return trip.getStatus().name();
     }
 
-    private MiniTripResponseDto getMiniTripResponse(Trip trip){
+    public MiniTripResponseDto getMiniTripResponse(Trip trip){
         return MiniTripResponseDto.builder()
                 .id(trip.getId())
-                .vehicleNumber(trip.getVehicle().getNumber())
-                .driverId(trip.getDriver().getId())
                 .source(trip.getSource())
                 .destination(trip.getDestination())
                 .startDate(trip.getStartDate())
                 .endDate(trip.getEndDate())
                 .freightPrice(trip.getFreightPrice())
+                .totalExpense(getTotalExpenseOfTrip(trip))
                 .status(trip.getStatus())
                 .profit(getTotalProfitOfTrip(trip))
                 .build();
@@ -167,5 +168,17 @@ public class TripService {
                 .tripId(tripId)
                 .status(trip.getStatus())
                 .build();
+    }
+
+    public List<Trip> getCompletedTripsByVehicleIds(List<Long> vehicleIds) {
+        return tripRepository.findCompletedTripsByVehicleIds(vehicleIds);
+    }
+
+    public List<Expense> getByIdIn(List<Long> tripIds) {
+        return tripRepository.findByIdIn(tripIds);
+    }
+
+    public List<Trip> getCompletedTripsByUserId(Long userId) {
+        return tripRepository.findCompletedTripsByUserId(userId);
     }
 }

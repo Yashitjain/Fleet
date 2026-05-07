@@ -26,6 +26,8 @@ public class TripResponseDto {
     private LocalDate startDate;
     private LocalDate endDate;
     private Status status;
+    private Integer totalExpense;
+    private Integer profit;
     @Builder.Default
     private List<Expense> expenseList = new ArrayList<>();
 }

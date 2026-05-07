@@ -1,25 +1,25 @@
-package com.FYP.Fleet.Dto.MiniResponseDto;
+package com.FYP.Fleet.Dto.Response;
 
 import com.FYP.Fleet.Enums.Status;
 import lombok.*;
 
 import java.time.LocalDate;
 
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class MiniTripResponseDto {
-    private Long id;
-//    private String vehicleNumber;
-//    private long driverId;
+public class TripSummaryDto {
+    private long tripId;
+    private String vehicleNumber;
     private String source;
     private String destination;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Integer freightPrice;
-    private Integer totalExpense;
+    private int freightPrice;
+    private int totalExpense;
     private int profit;
     private Status status;
 }

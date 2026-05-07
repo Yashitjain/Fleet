@@ -1,6 +1,7 @@
 package com.FYP.Fleet.Controllers;
 
 import com.FYP.Fleet.Dto.Request.UserRequestDto;
+import com.FYP.Fleet.Dto.Response.UserBalanceResponseDto;
 import com.FYP.Fleet.Dto.Response.UserResponseDto;
 import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Models.User;
@@ -34,8 +35,8 @@ public class UserController {
     }
 
     @GetMapping("/balance")
-    public ResponseEntity<Integer> getBalanceOfUser(@AuthenticationPrincipal SecurityUser securityUser){
-        Integer balance = userService.getBalance(securityUser.getId());
+    public ResponseEntity<UserBalanceResponseDto> getBalanceOfUser(@AuthenticationPrincipal SecurityUser securityUser){
+        UserBalanceResponseDto balance = userService.getBalance(securityUser.getId());
         return ResponseEntity.status(HttpStatus.OK).body(balance);
     }
 }

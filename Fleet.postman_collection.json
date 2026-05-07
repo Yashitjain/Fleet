@@ -1,104 +1,14 @@
 {
   "info": {
-    "_postman_id": "2a81856b-1a32-4cd9-9143-b449ed6df068",
-    "name": "Fleet2.0",
+    "_postman_id": "69a58f40-2860-4171-9779-1eee22247c82",
+    "name": "Fleet",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "35033791"
   },
   "item": [
     {
-      "name": "SignUp - Login",
+      "name": "Auth SignUp Login",
       "item": [
-        {
-          "name": "SignUp",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "SignUp",
-              "originalRequest": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"username\": \"Shri Ram Mover\",\r\n    \"password\": \"ShriRam108\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/auth/signup",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "auth",
-                    "signup"
-                  ]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Transfer-Encoding",
-                  "value": "chunked"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 14:47:55 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"username\": \"Shri Ram Mover\",\n    \"userId\": 202\n}"
-            }
-          ]
-        },
         {
           "name": "login",
           "request": {
@@ -113,7 +23,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"username\": \"Shri Ram Mover\",\r\n    \"password\": \"ShriRam108\"\r\n}",
+                  "raw": "{\r\n    \"username\":\"Shri Ram Movers\",\r\n    \"password\":\"ShriRam108\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -173,7 +83,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Wed, 06 May 2026 14:48:49 GMT"
+                  "value": "Wed, 06 May 2026 17:29:35 GMT"
                 },
                 {
                   "key": "Keep-Alive",
@@ -185,68 +95,126 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"jwt\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA\",\n    \"userId\": 202\n}"
+              "body": "{\n    \"jwt\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g\",\n    \"userId\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "SignUp",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "SignUp",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\":\"Shri Ram Movers\",\r\n    \"password\":\"ShriRam108\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/auth/signup",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "signup"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 17:28:28 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"username\": \"Shri Ram Movers\",\n    \"userId\": 1\n}"
             }
           ]
         }
       ]
     },
     {
-      "name": "Driver",
+      "name": "User",
       "item": [
         {
-          "name": "Create Driver",
+          "name": "Create User",
           "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\":\"Shyam Laal\",\r\n    \"phone\":\"9856324147\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/api/v1/driver/",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "v1",
-                "driver",
-                ""
-              ]
-            }
+            "method": "GET",
+            "header": []
           },
           "response": [
             {
-              "name": "Create Driver",
+              "name": "Create User",
               "originalRequest": {
                 "method": "POST",
                 "header": [
                   {
                     "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
                     "type": "text"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"name\":\"Shyam Laal\",\r\n    \"phone\":\"9856324147\"\r\n}",
+                  "raw": "{\r\n    \"name\":\"Akhil Das\",\r\n    \"phone\": \"7896321454\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -254,7 +222,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/driver/",
+                  "raw": "http://localhost:8080/api/v1/user/",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -263,7 +231,7 @@
                   "path": [
                     "api",
                     "v1",
-                    "driver",
+                    "user",
                     ""
                   ]
                 }
@@ -306,7 +274,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Wed, 06 May 2026 14:50:45 GMT"
+                  "value": "Wed, 06 May 2026 17:31:00 GMT"
                 },
                 {
                   "key": "Keep-Alive",
@@ -318,163 +286,30 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"id\": 102,\n    \"name\": \"Shyam Laal\",\n    \"phone\": \"9856324147\",\n    \"ownerId\": 202,\n    \"ownerName\": null,\n    \"tripList\": []\n}"
+              "body": "{\n    \"userId\": 1,\n    \"name\": \"Akhil Das\",\n    \"phone\": \"7896321454\",\n    \"vehicleList\": [],\n    \"driverList\": [],\n    \"tripList\": []\n}"
             }
           ]
         },
         {
-          "name": "Get Driver",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                "type": "text",
-                "disabled": true
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/api/v1/driver/102",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "v1",
-                "driver",
-                "102"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Get Driver",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text",
-                    "disabled": true
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/driver/102",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "driver",
-                    "102"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Transfer-Encoding",
-                  "value": "chunked"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 14:52:24 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"id\": 102,\n    \"name\": \"Shyam Laal\",\n    \"phone\": \"9856324147\",\n    \"ownerId\": 202,\n    \"ownerName\": null,\n    \"tripList\": []\n}"
-            }
-          ]
-        },
-        {
-          "name": "Get All Driver Of User",
+          "name": "Get User",
           "request": {
             "method": "GET",
             "header": []
           },
           "response": [
             {
-              "name": "Get All Driver Of User",
+              "name": "Get User",
               "originalRequest": {
                 "method": "GET",
                 "header": [
                   {
                     "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
                     "type": "text"
                   }
                 ],
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/driver/",
+                  "raw": "http://localhost:8080/api/v1/user/",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -483,108 +318,7 @@
                   "path": [
                     "api",
                     "v1",
-                    "driver",
-                    ""
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Transfer-Encoding",
-                  "value": "chunked"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 14:55:09 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "[\n    {\n        \"id\": 102,\n        \"name\": \"Shyam Laal\",\n        \"phone\": \"9856324147\",\n        \"ownerId\": 202,\n        \"ownerName\": null,\n        \"tripList\": []\n    }\n]"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Expense",
-      "item": [
-        {
-          "name": "Create Expense",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Create Expense",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"tripId\":2,\r\n    \"expenseType\":\"DIESEL\",\r\n    \"note\":\"NH-176 Indian Oil Petrol Pump\",\r\n    \"date\":\"2026-05-11\",\r\n    \"amount\":7500\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/expense/",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "expense",
+                    "user",
                     ""
                   ]
                 }
@@ -627,7 +361,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Wed, 06 May 2026 15:11:10 GMT"
+                  "value": "Wed, 06 May 2026 17:59:51 GMT"
                 },
                 {
                   "key": "Keep-Alive",
@@ -639,34 +373,30 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"expenseId\": 152,\n    \"amount\": 7500,\n    \"date\": \"2026-05-11\",\n    \"note\": \"NH-176 Indian Oil Petrol Pump\",\n    \"expenseType\": \"DIESEL\"\n}"
+              "body": "{\n    \"userId\": 1,\n    \"name\": \"Akhil Das\",\n    \"phone\": \"7896321454\",\n    \"vehicleList\": [\n        \"MH8BRN7569\"\n    ],\n    \"driverList\": [\n        \"Shyam Laal\",\n        \"Raju Paal\"\n    ],\n    \"tripList\": [\n        1\n    ]\n}"
             }
           ]
         },
         {
-          "name": "Get Expense",
+          "name": "Get Balance",
           "request": {
             "method": "GET",
             "header": []
           },
           "response": [
             {
-              "name": "Get Expense",
+              "name": "Get Balance",
               "originalRequest": {
                 "method": "GET",
                 "header": [
                   {
                     "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
                     "type": "text"
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"tripId\":1,\r\n    \"expenseType\":\"TOLL\",\r\n    \"note\":\"UER 2 Toll\",\r\n    \"date\":\"2026-05-03\",\r\n    \"amount\":250 \r\n}"
-                },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/expense/152",
+                  "raw": "http://localhost:8080/api/v1/user/balance",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -675,8 +405,8 @@
                   "path": [
                     "api",
                     "v1",
-                    "expense",
-                    "152"
+                    "user",
+                    "balance"
                   ]
                 }
               },
@@ -718,7 +448,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Wed, 06 May 2026 15:12:18 GMT"
+                  "value": "Thu, 07 May 2026 08:25:25 GMT"
                 },
                 {
                   "key": "Keep-Alive",
@@ -730,831 +460,7 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"expenseId\": 152,\n    \"tripId\": 2,\n    \"driverId\": 102,\n    \"ownerId\": 202,\n    \"ownerName\": null,\n    \"amount\": 7500,\n    \"date\": \"2026-05-11\",\n    \"source\": \"MUNNAR\",\n    \"destination\": \"KOCHI\",\n    \"note\": \"NH-176 Indian Oil Petrol Pump\",\n    \"expenseType\": \"DIESEL\"\n}"
-            }
-          ]
-        },
-        {
-          "name": "Get Trip All Expense",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Get Trip All Expense",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"tripId\":1,\r\n    \"expenseType\":\"TOLL\",\r\n    \"note\":\"UER 2 Toll\",\r\n    \"date\":\"2026-05-03\",\r\n    \"amount\":250 \r\n}"
-                },
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/expense/trip/2",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "expense",
-                    "trip",
-                    "2"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Transfer-Encoding",
-                  "value": "chunked"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 15:16:46 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "[\n    {\n        \"expenseId\": 152,\n        \"amount\": 7500,\n        \"date\": \"2026-05-11\",\n        \"note\": \"NH-176 Indian Oil Petrol Pump\",\n        \"expenseType\": \"DIESEL\"\n    },\n    {\n        \"expenseId\": 153,\n        \"amount\": 3500,\n        \"date\": \"2026-05-11\",\n        \"note\": \"Tyre Repair\",\n        \"expenseType\": \"OTHER\"\n    },\n    {\n        \"expenseId\": 154,\n        \"amount\": 25000,\n        \"date\": \"2026-05-10\",\n        \"note\": \"Driver Charge\",\n        \"expenseType\": \"DRIVER\"\n    }\n]"
-            }
-          ]
-        },
-        {
-          "name": "Create Expense 2",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Create Expense 2",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"tripId\":2,\r\n    \"expenseType\":\"OTHER\",\r\n    \"note\":\"Tyre Repair\",\r\n    \"date\":\"2026-05-11\",\r\n    \"amount\":3500\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/expense/",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "expense",
-                    ""
-                  ]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Transfer-Encoding",
-                  "value": "chunked"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 15:14:54 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"expenseId\": 153,\n    \"amount\": 3500,\n    \"date\": \"2026-05-11\",\n    \"note\": \"Tyre Repair\",\n    \"expenseType\": \"OTHER\"\n}"
-            }
-          ]
-        },
-        {
-          "name": "Create Expense 3",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Create Expense 3",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"tripId\":2,\r\n    \"expenseType\":\"DRIVER\",\r\n    \"note\":\"Driver Charge\",\r\n    \"date\":\"2026-05-10\",\r\n    \"amount\":25000 \r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/expense/",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "expense",
-                    ""
-                  ]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Transfer-Encoding",
-                  "value": "chunked"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 15:16:20 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"expenseId\": 154,\n    \"amount\": 25000,\n    \"date\": \"2026-05-10\",\n    \"note\": \"Driver Charge\",\n    \"expenseType\": \"DRIVER\"\n}"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Trip",
-      "item": [
-        {
-          "name": "Create Trip",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Create Trip",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"driverId\":102,\r\n    \"vehicleNumber\":\"MH8BRN7569\",\r\n    \"source\":\"MUNNAR\",\r\n    \"destination\":\"KOCHI\",\r\n    \"freightPrice\":75000,\r\n    \"startDate\":\"2026-05-10\",\r\n    \"endDate\":\"2026-05-12\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/trip/",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "trip",
-                    ""
-                  ]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Transfer-Encoding",
-                  "value": "chunked"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 15:05:19 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"id\": 2,\n    \"vehicleNumber\": \"MH8BRN7569\",\n    \"driverId\": 102,\n    \"ownerId\": 202,\n    \"ownerName\": null,\n    \"source\": \"MUNNAR\",\n    \"destination\": \"KOCHI\",\n    \"freightPrice\": 75000,\n    \"startDate\": \"2026-05-10\",\n    \"endDate\": \"2026-05-12\",\n    \"status\": \"ACTIVE\",\n    \"expenseList\": []\n}"
-            }
-          ]
-        },
-        {
-          "name": "Get Trip",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Get Trip",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJZYXNoaXQiLCJ1c2VyX2lkIjo1MiwiaWF0IjoxNzc4MDUzMDY0LCJleHAiOjE3ODA2NDUwNjR9.vyLO6SyAxgdQM4XBkxNRJzqhoXmLbStovEQsKEdNO9yFFWUdBxbgsWGrzkZyiGNzqxNedC5uRwHVxw7otTZ2vQ",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/trip/2",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "trip",
-                    "2"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Transfer-Encoding",
-                  "value": "chunked"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 15:06:03 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"id\": 2,\n    \"vehicleNumber\": \"MH8BRN7569\",\n    \"driverId\": 102,\n    \"ownerId\": 202,\n    \"ownerName\": null,\n    \"source\": \"MUNNAR\",\n    \"destination\": \"KOCHI\",\n    \"freightPrice\": 75000,\n    \"startDate\": \"2026-05-10\",\n    \"endDate\": \"2026-05-12\",\n    \"status\": \"ACTIVE\",\n    \"expenseList\": []\n}"
-            }
-          ]
-        },
-        {
-          "name": "Get Trip Summary",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Get Trip Summary",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/trip/summary/2",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "trip",
-                    "summary",
-                    "2"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain;charset=UTF-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "143"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 15:18:43 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "Freight Price: 75000\n\t Diesel Expense: 7500\n\t Toll Expense: 0\n\t Driver Expense: 25000\n\t Other Expense: 3500\nTotal Expense: 36000\n\nProfit: 39000"
-            }
-          ]
-        },
-        {
-          "name": "Get All Trip Of User",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Get All Trip Of User",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/trip/",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "trip",
-                    ""
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Transfer-Encoding",
-                  "value": "chunked"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 15:08:15 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "[\n    {\n        \"id\": 2,\n        \"vehicleNumber\": \"MH8BRN7569\",\n        \"driverId\": 102,\n        \"source\": \"MUNNAR\",\n        \"destination\": \"KOCHI\",\n        \"startDate\": \"2026-05-10\",\n        \"endDate\": \"2026-05-12\",\n        \"freightPrice\": 75000,\n        \"status\": \"ACTIVE\",\n        \"profit\": 75000\n    }\n]"
-            }
-          ]
-        },
-        {
-          "name": "Trip Status",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Trip Status",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/trip/status/2",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "trip",
-                    "status",
-                    "2"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain;charset=UTF-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "6"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 15:09:07 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "ACTIVE"
-            }
-          ]
-        },
-        {
-          "name": "Close Trip",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Close Trip",
-              "originalRequest": {
-                "method": "PATCH",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/trip/status/2/close",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "trip",
-                    "status",
-                    "2",
-                    "close"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "16"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 15:30:44 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "\"204 NO_CONTENT\""
+              "body": "{\n    \"totalFreightEarned\": 75000,\n    \"dieselExpense\": 7500,\n    \"tollExpense\": 0,\n    \"driverExpense\": 25000,\n    \"otherExpense\": 3500,\n    \"totalExpenses\": 36000,\n    \"balance\": 39000,\n    \"trips\": [\n        {\n            \"id\": 1,\n            \"source\": \"MUNNAR\",\n            \"destination\": \"BANGLORE\",\n            \"startDate\": \"2026-05-10\",\n            \"endDate\": \"2026-05-15\",\n            \"freightPrice\": 75000,\n            \"totalExpense\": 36000,\n            \"profit\": 39000,\n            \"status\": \"COMPLETED\"\n        }\n    ]\n}"
             }
           ]
         }
@@ -1577,13 +483,13 @@
                 "header": [
                   {
                     "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
                     "type": "text"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"vehicleNumber\":\"MH8BRN7569\"\r\n}",
+                  "raw": "{\r\n    \"vehicleNumber\": \"MH8BRN7569\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1643,7 +549,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Wed, 06 May 2026 14:59:27 GMT"
+                  "value": "Wed, 06 May 2026 17:33:11 GMT"
                 },
                 {
                   "key": "Keep-Alive",
@@ -1655,112 +561,25 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"id\": 102,\n    \"number\": \"MH8BRN7569\",\n    \"tripList\": null\n}"
+              "body": "{\n    \"id\": 1,\n    \"number\": \"MH8BRN7569\",\n    \"tripList\": null\n}"
             }
           ]
         },
         {
-          "name": "Get All Vehicles of Owner",
+          "name": "Get Vehicle",
           "request": {
             "method": "GET",
             "header": []
           },
           "response": [
             {
-              "name": "Get All Vehicles of Owner",
+              "name": "Get Vehicle",
               "originalRequest": {
                 "method": "GET",
                 "header": [
                   {
                     "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:8080/api/v1/vehicle/",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "v1",
-                    "vehicle",
-                    ""
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "X-Content-Type-Options",
-                  "value": "nosniff"
-                },
-                {
-                  "key": "X-XSS-Protection",
-                  "value": "0"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, no-store, max-age=0, must-revalidate"
-                },
-                {
-                  "key": "Pragma",
-                  "value": "no-cache"
-                },
-                {
-                  "key": "Expires",
-                  "value": "0"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "DENY"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Transfer-Encoding",
-                  "value": "chunked"
-                },
-                {
-                  "key": "Date",
-                  "value": "Wed, 06 May 2026 15:00:58 GMT"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=60"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                }
-              ],
-              "cookie": [],
-              "body": "[\n    {\n        \"id\": 102,\n        \"vehicleNumber\": \"MH8BRN7569\",\n        \"tripList\": []\n    }\n]"
-            }
-          ]
-        },
-        {
-          "name": "Get Vehicle By Number",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": [
-            {
-              "name": "Get Vehicle By Number",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
                     "type": "text"
                   }
                 ],
@@ -1818,7 +637,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Wed, 06 May 2026 15:02:25 GMT"
+                  "value": "Thu, 07 May 2026 07:25:15 GMT"
                 },
                 {
                   "key": "Keep-Alive",
@@ -1830,36 +649,131 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"id\": 102,\n    \"vehicleNumber\": \"MH8BRN7569\",\n    \"tripList\": []\n}"
+              "body": "{\n    \"id\": 1,\n    \"vehicleNumber\": \"MH8BRN7569\",\n    \"ownerId\": 1,\n    \"tripList\": [\n        1\n    ]\n}"
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "User",
-      "item": [
+        },
         {
-          "name": "Create User",
+          "name": "Get All Vehicles Of User",
           "request": {
             "method": "GET",
             "header": []
           },
           "response": [
             {
-              "name": "Create User",
+              "name": "Get All Vehicles Of User",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/vehicle/",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "vehicle",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:18:03 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"vehicleNumber\": \"MH8BRN7569\",\n        \"tripList\": [\n            1\n        ]\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Update Vehicle",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Driver",
+      "item": [
+        {
+          "name": "Create Driver",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Create Driver",
               "originalRequest": {
                 "method": "POST",
                 "header": [
                   {
                     "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
                     "type": "text"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"name\":\"Akhil Das\",\r\n    \"phone\":\"7896321454\"\r\n}",
+                  "raw": "{\r\n    \"name\":\"Shyam Laal\",\r\n    \"phone\":\"9865321245\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1867,7 +781,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/user/",
+                  "raw": "http://localhost:8080/api/v1/driver/",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -1876,7 +790,7 @@
                   "path": [
                     "api",
                     "v1",
-                    "user",
+                    "driver",
                     ""
                   ]
                 }
@@ -1919,7 +833,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Wed, 06 May 2026 15:25:10 GMT"
+                  "value": "Wed, 06 May 2026 17:34:59 GMT"
                 },
                 {
                   "key": "Keep-Alive",
@@ -1931,30 +845,39 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"userId\": 202,\n    \"name\": \"Akhil Das\",\n    \"phone\": \"7896321454\",\n    \"vehicleList\": [\n        \"MH8BRN7569\"\n    ],\n    \"driverList\": [\n        \"Shyam Laal\"\n    ],\n    \"tripList\": [\n        2\n    ]\n}"
+              "body": "{\n    \"id\": 1,\n    \"name\": \"Shyam Laal\",\n    \"phone\": \"9865321245\",\n    \"ownerId\": 1,\n    \"ownerName\": \"Akhil Das\",\n    \"tripList\": []\n}"
             }
           ]
         },
         {
-          "name": "Get User",
+          "name": "Create Driver 2",
           "request": {
             "method": "GET",
             "header": []
           },
           "response": [
             {
-              "name": "Get User",
+              "name": "Create Driver 2",
               "originalRequest": {
-                "method": "GET",
+                "method": "POST",
                 "header": [
                   {
                     "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
                     "type": "text"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Raju Paal\",\r\n    \"phone\":\"7845123265\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/user/",
+                  "raw": "http://localhost:8080/api/v1/driver/",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -1963,7 +886,7 @@
                   "path": [
                     "api",
                     "v1",
-                    "user",
+                    "driver",
                     ""
                   ]
                 }
@@ -2006,7 +929,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Wed, 06 May 2026 15:26:30 GMT"
+                  "value": "Wed, 06 May 2026 17:36:13 GMT"
                 },
                 {
                   "key": "Keep-Alive",
@@ -2018,30 +941,30 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"userId\": 202,\n    \"name\": \"Akhil Das\",\n    \"phone\": \"7896321454\",\n    \"vehicleList\": [\n        \"MH8BRN7569\"\n    ],\n    \"driverList\": [\n        \"Shyam Laal\"\n    ],\n    \"tripList\": [\n        2\n    ]\n}"
+              "body": "{\n    \"id\": 2,\n    \"name\": \"Raju Paal\",\n    \"phone\": \"7845123265\",\n    \"ownerId\": 1,\n    \"ownerName\": \"Akhil Das\",\n    \"tripList\": []\n}"
             }
           ]
         },
         {
-          "name": "User balance",
+          "name": "Get Driver",
           "request": {
             "method": "GET",
             "header": []
           },
           "response": [
             {
-              "name": "User balance",
+              "name": "Get Driver",
               "originalRequest": {
                 "method": "GET",
                 "header": [
                   {
                     "key": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlciIsInVzZXJfaWQiOjIwMiwiaWF0IjoxNzc4MDc4OTI5LCJleHAiOjE3ODA2NzA5Mjl9.qfd_mhH0FoobSJqBp8FxoKTyS_dpfbGeZr2QTdyzcH6eqKiHpiA99Iy4LoGm2l7WZOnAdcvXUdsTKkSvxmslKA",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
                     "type": "text"
                   }
                 ],
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/user/balance",
+                  "raw": "http://localhost:8080/api/v1/driver/1",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -2050,7 +973,1307 @@
                   "path": [
                     "api",
                     "v1",
-                    "user",
+                    "driver",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:04:10 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"name\": \"Shyam Laal\",\n    \"phone\": \"9865321245\",\n    \"userId\": 1,\n    \"ownerName\": \"Akhil Das\",\n    \"tripList\": [\n        1\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Driver 2",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Get Driver 2",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/driver/2",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "driver",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:04:51 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 2,\n    \"name\": \"Raju Paal\",\n    \"phone\": \"7845123265\",\n    \"userId\": 1,\n    \"ownerName\": \"Akhil Das\",\n    \"tripList\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Drivers Of User",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Get All Drivers Of User",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/driver/",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "driver",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:15:35 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Shyam Laal\",\n        \"phone\": \"9865321245\",\n        \"userId\": 1,\n        \"ownerName\": \"Akhil Das\",\n        \"tripList\": [\n            1\n        ]\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Raju Paal\",\n        \"phone\": \"7845123265\",\n        \"userId\": 1,\n        \"ownerName\": \"Akhil Das\",\n        \"tripList\": []\n    }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Trip",
+      "item": [
+        {
+          "name": "Create Trip",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Create Trip",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"driverId\": 1,\r\n    \"vehicleNumber\": \"MH8BRN7569\",\r\n    \"source\": \"MUNNAR\",\r\n    \"destination\": \"BANGLORE\",\r\n    \"startDate\": \"2026-05-10\",\r\n    \"endDate\": \"2026-05-15\",\r\n    \"freightPrice\": 75000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/trip/",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "trip",
+                    ""
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 17:39:15 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"vehicleNumber\": \"MH8BRN7569\",\n    \"driverId\": 1,\n    \"ownerId\": 1,\n    \"ownerName\": \"Akhil Das\",\n    \"source\": \"MUNNAR\",\n    \"destination\": \"BANGLORE\",\n    \"freightPrice\": 75000,\n    \"startDate\": \"2026-05-10\",\n    \"endDate\": \"2026-05-15\",\n    \"status\": \"ACTIVE\",\n    \"expenseList\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "get Trip",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "get Trip",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/trip/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "trip",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:06:27 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"vehicleNumber\": \"MH8BRN7569\",\n    \"driverId\": 1,\n    \"userId\": 1,\n    \"userName\": \"Akhil Das\",\n    \"source\": \"MUNNAR\",\n    \"destination\": \"BANGLORE\",\n    \"freightPrice\": 75000,\n    \"startDate\": \"2026-05-10\",\n    \"endDate\": \"2026-05-15\",\n    \"status\": \"COMPLETED\",\n    \"expenseList\": [\n        {\n            \"id\": 1,\n            \"expenseType\": \"DIESEL\",\n            \"note\": \"NH-176 Indian Oil Petrol Pump\",\n            \"date\": \"2026-05-11\",\n            \"amount\": 7500\n        },\n        {\n            \"id\": 2,\n            \"expenseType\": \"DRIVER\",\n            \"note\": \"Driver Charge\",\n            \"date\": \"2026-05-10\",\n            \"amount\": 25000\n        },\n        {\n            \"id\": 3,\n            \"expenseType\": \"OTHER\",\n            \"note\": \"Tyre Repair\",\n            \"date\": \"2026-05-11\",\n            \"amount\": 3500\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Trip Status",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Get Trip Status",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/trip/status/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "trip",
+                    "status",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "9"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:08:35 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "COMPLETED"
+            }
+          ]
+        },
+        {
+          "name": "Get Trip Summary",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Get Trip Summary",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/trip/summary/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "trip",
+                    "summary",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:09:03 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"freightPrice\": 75000,\n    \"dieselExpense\": 7500,\n    \"tollExpense\": 0,\n    \"driverExpense\": 25000,\n    \"otherExpense\": 3500,\n    \"totalExpense\": 36000,\n    \"profit\": 39000\n}"
+            }
+          ]
+        },
+        {
+          "name": "All Trip Of Users",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "All Trip Of Users",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/trip/",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "trip",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:09:16 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"vehicleNumber\": \"MH8BRN7569\",\n        \"driverId\": 1,\n        \"source\": \"MUNNAR\",\n        \"destination\": \"BANGLORE\",\n        \"startDate\": \"2026-05-10\",\n        \"endDate\": \"2026-05-15\",\n        \"freightPrice\": 75000,\n        \"status\": \"COMPLETED\",\n        \"profit\": 39000\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Close Trip",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Close Trip",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/trip/status/1/close",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "trip",
+                    "status",
+                    "1",
+                    "close"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:12:21 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"tripId\": 1,\n    \"status\": \"COMPLETED\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Expense",
+      "item": [
+        {
+          "name": "Create Expense",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Create Expense",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"expenseType\": \"DIESEL\",\r\n    \"note\": \"NH-176 Indian Oil Petrol Pump\",\r\n    \"date\": \"2026-05-11\",\r\n    \"amount\": 7500,\r\n    \"tripId\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/expense/",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "expense",
+                    ""
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 17:43:28 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"expenseId\": 1,\n    \"amount\": 7500,\n    \"date\": \"2026-05-11\",\n    \"note\": \"NH-176 Indian Oil Petrol Pump\",\n    \"expenseType\": \"DIESEL\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Expense 2",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Create Expense 2",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"expenseType\": \"DRIVER\",\r\n    \"amount\": 25000,\r\n    \"date\": \"2026-05-10\",\r\n    \"note\": \"Driver Charge\",\r\n    \"tripId\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/expense/",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "expense",
+                    ""
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 17:44:42 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"expenseId\": 2,\n    \"amount\": 25000,\n    \"date\": \"2026-05-10\",\n    \"note\": \"Driver Charge\",\n    \"expenseType\": \"DRIVER\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Expense 3",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Create Expense 3",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"amount\": 3500,\r\n    \"expenseType\": \"OTHER\",\r\n    \"note\": \"Tyre Repair\",\r\n    \"date\": \"2026-05-11\",\r\n    \"tripId\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/expense/",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "expense",
+                    ""
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 17:45:37 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"expenseId\": 3,\n    \"amount\": 3500,\n    \"date\": \"2026-05-11\",\n    \"note\": \"Tyre Repair\",\n    \"expenseType\": \"OTHER\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Expense",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Get Expense",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/expense/2",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "expense",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:07:56 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"expenseId\": 2,\n    \"tripId\": 1,\n    \"driverId\": 1,\n    \"userId\": 1,\n    \"userName\": \"Akhil Das\",\n    \"amount\": 25000,\n    \"date\": \"2026-05-10\",\n    \"source\": \"MUNNAR\",\n    \"destination\": \"BANGLORE\",\n    \"note\": \"Driver Charge\",\n    \"expenseType\": \"DRIVER\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Trip All Expenses",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Get Trip All Expenses",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/expense/trip/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "expense",
+                    "trip",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 06 May 2026 18:08:10 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"expenseId\": 1,\n        \"amount\": 7500,\n        \"date\": \"2026-05-11\",\n        \"note\": \"NH-176 Indian Oil Petrol Pump\",\n        \"expenseType\": \"DIESEL\"\n    },\n    {\n        \"expenseId\": 2,\n        \"amount\": 25000,\n        \"date\": \"2026-05-10\",\n        \"note\": \"Driver Charge\",\n        \"expenseType\": \"DRIVER\"\n    },\n    {\n        \"expenseId\": 3,\n        \"amount\": 3500,\n        \"date\": \"2026-05-11\",\n        \"note\": \"Tyre Repair\",\n        \"expenseType\": \"OTHER\"\n    }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Owner",
+      "item": [
+        {
+          "name": "Create Owner",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Get Owner",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Owner Balance",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "Owner Balance",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaHJpIFJhbSBNb3ZlcnMiLCJ1c2VyX2lkIjoxLCJpYXQiOjE3NzgwODg1NzUsImV4cCI6MTc4MDY4MDU3NX0.Q6kIgb8_5DcYsiA1fJxrvAqwgFoPuZoltgS1-pYoBxJolhflcYdSexQIb5hqx995UoWPYGWuNkt_9-NWLeDL4g",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/owner/1/balance",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "owner",
+                    "1",
                     "balance"
                   ]
                 }
@@ -2093,7 +2316,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Wed, 06 May 2026 15:31:02 GMT"
+                  "value": "Thu, 07 May 2026 07:39:57 GMT"
                 },
                 {
                   "key": "Keep-Alive",
@@ -2105,7 +2328,7 @@
                 }
               ],
               "cookie": [],
-              "body": "39000"
+              "body": "{\n    \"ownerId\": 1,\n    \"ownerName\": \"Yashit Jain\",\n    \"ownerPhone\": \"7011562650\",\n    \"totalFreightEarned\": 75000,\n    \"dieselExpense\": 7500,\n    \"tollExpense\": 0,\n    \"driverExpense\": 25000,\n    \"otherExpense\": 3500,\n    \"totalExpenses\": 36000,\n    \"balance\": 39000,\n    \"status\": \"PAYABLE\",\n    \"trips\": [\n        {\n            \"tripId\": 1,\n            \"vehicleNumber\": \"MH8BRN7569\",\n            \"source\": \"MUNNAR\",\n            \"destination\": \"BANGLORE\",\n            \"startDate\": \"2026-05-10\",\n            \"endDate\": \"2026-05-15\",\n            \"freightPrice\": 75000,\n            \"totalExpense\": 36000,\n            \"profit\": 39000,\n            \"status\": \"COMPLETED\"\n        }\n    ]\n}"
             }
           ]
         }

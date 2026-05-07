@@ -8,6 +8,7 @@ import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Repository.ExpenseRepository;
 import com.FYP.Fleet.Repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,20 +21,17 @@ public class ExpenseService {
 
     private final ExpenseRepository expenseRepository;
     private final TripService tripService;
-    private final TripRepository tripRepository;
 
 
     @Autowired
-    public ExpenseService(ExpenseRepository expenseRepository, TripService tripService, TripRepository tripRepository){
+    public ExpenseService(ExpenseRepository expenseRepository, TripService tripService){
         this.expenseRepository = expenseRepository;
         this.tripService = tripService;
-        this.tripRepository = tripRepository;
     }
 
     @Transactional
     public MiniExpenseResponseDto createExpense(ExpenseRequestDto expenseRequestDto){
-        Trip trip = tripRepository.findById(expenseRequestDto.getTripId())
-                .orElseThrow(() -> new RuntimeException("Trip not found"));
+        Trip trip = tripService.getTripById(expenseRequestDto.getTripId());
         Expense expense = Expense.builder()
                 .trip(trip)
                 .expenseType(expenseRequestDto.getExpenseType())
@@ -101,5 +99,9 @@ public class ExpenseService {
                 .note(expense.getNote())
                 .expenseType(expense.getExpenseType())
                 .build();
+    }
+
+    public List<Expense> getByTripIdIn(List<Long> tripIds) {
+        return tripService.getByIdIn(tripIds);
     }
 }
