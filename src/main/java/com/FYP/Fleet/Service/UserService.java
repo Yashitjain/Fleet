@@ -5,7 +5,6 @@ import com.FYP.Fleet.Dto.Request.UserRequestDto;
 import com.FYP.Fleet.Dto.Response.UserBalanceResponseDto;
 import com.FYP.Fleet.Dto.Response.UserResponseDto;
 import com.FYP.Fleet.Enums.ExpenseType;
-import com.FYP.Fleet.Enums.Status;
 import com.FYP.Fleet.Models.*;
 import com.FYP.Fleet.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +65,10 @@ public class UserService {
         Long driverExpense = tripList.stream().mapToLong(t -> sumByType(t.getExpenseList(), ExpenseType.DRIVER)).sum();
         Long otherExpense = tripList.stream().mapToLong(t -> sumByType(t.getExpenseList(), ExpenseType.OTHER)).sum();
         Long totalExpense = dieselExpense + tollExpense + driverExpense + otherExpense;
-        Long balance = totalFreightPrice - totalExpense;
+        Long ownerRate = tripList.stream().mapToLong(Trip::getOwnerRate).sum();
+        Long ownerAdvance = tripList.stream().mapToLong(Trip::getOwnerAdvance).sum();
+        Long amountToPay = ownerRate - ownerAdvance;
+        Long profit = totalFreightPrice - totalExpense - (ownerRate - ownerAdvance) ;
 
         return UserBalanceResponseDto.builder()
                 .totalTrips(tripList.size())
@@ -76,7 +78,10 @@ public class UserService {
                 .driverExpense(driverExpense)
                 .otherExpense(otherExpense)
                 .totalExpenses(totalExpense)
-                .balance(balance)
+                .ownerRate(ownerRate)
+                .ownerAdvance(ownerAdvance)
+                .amountToPay(amountToPay)
+                .profit(profit)
                 .trips(miniTripResponseDos)
                 .build();
 

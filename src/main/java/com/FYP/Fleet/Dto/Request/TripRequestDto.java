@@ -13,7 +13,9 @@ public class TripRequestDto {
     private String vehicleNumber;
     private String source;
     private String destination;
-    private Integer freightPrice;
+    private Long freightPrice;
     private LocalDate startDate;
     private LocalDate endDate;
+    private Long ownerRate;
+    private Long ownerAdvance;
 }

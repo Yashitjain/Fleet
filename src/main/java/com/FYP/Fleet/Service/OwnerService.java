@@ -6,17 +6,12 @@ import com.FYP.Fleet.Dto.Response.OwnerResponseDto;
 import com.FYP.Fleet.Dto.Response.TripSummaryDto;
 import com.FYP.Fleet.Enums.ExpenseType;
 import com.FYP.Fleet.Models.*;
-import com.FYP.Fleet.Repository.ExpenseRepository;
 import com.FYP.Fleet.Repository.OwnerRepository;
-import com.FYP.Fleet.Repository.TripRepository;
-import com.FYP.Fleet.Repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,61 +62,56 @@ public class OwnerService {
         Owner owner = ownerRepository.findByIdAndUserId(ownerId, userId)
                 .orElseThrow(() -> new RuntimeException("Owner not found"));
 
-        // Get all vehicle IDs belonging to this owner
-        List<Long> vehicleIds = owner.getVehicles()
-                .stream()
-                .map(Vehicle::getId)
-                .collect(Collectors.toList());
 
-        if (vehicleIds.isEmpty()) {
-            return emptyBalance(owner);
-        }
 
         // Get all COMPLETED trips for owner's vehicles
         List<Trip> completedTrips = tripService
-                .getCompletedTripsByVehicleIds(vehicleIds);
+                .getCompletedTripsByOwnerIdAndUserId(ownerId, userId);
 
-        // Calculate totals
-        long totalFreight = completedTrips.stream()
-                .mapToLong(Trip::getFreightPrice)
-                .sum();
-
-        List<Expense> expenses = completedTrips.stream()
-                .flatMap(trip -> trip.getExpenseList().stream())
-                .toList();
-
-        long diesel = sumByType(expenses, ExpenseType.DIESEL);
-        long toll   = sumByType(expenses, ExpenseType.TOLL);
-        long driver = sumByType(expenses, ExpenseType.DRIVER);
-        long other  = sumByType(expenses, ExpenseType.OTHER);
-        long totalExpenses = diesel + toll + driver + other;
-        long balance = totalFreight - totalExpenses;
+//        // Calculate totals
+//        long totalFreight = completedTrips.stream()
+//                .mapToLong(Trip::getFreightPrice)
+//                .sum();
+//
+//        List<Expense> expenses = completedTrips.stream()
+//                .flatMap(trip -> trip.getExpenseList().stream())
+//                .toList();
+//
+//        long diesel = sumByType(expenses, ExpenseType.DIESEL);
+//        long toll   = sumByType(expenses, ExpenseType.TOLL);
+//        long driver = sumByType(expenses, ExpenseType.DRIVER);
+//        long other  = sumByType(expenses, ExpenseType.OTHER);
+//        long totalExpenses = diesel + toll + driver + other;
+        long totalAdvance = completedTrips.stream().mapToLong(Trip::getOwnerAdvance).sum();
+        long totalRate = completedTrips.stream().mapToLong(Trip::getOwnerRate).sum();
+        long amountToReceive = totalRate - totalAdvance;
 
         OwnerBalanceDto dto = new OwnerBalanceDto();
         dto.setOwnerId(owner.getId());
         dto.setOwnerName(owner.getName());
         dto.setOwnerPhone(owner.getPhone());
-        dto.setTotalFreightEarned(totalFreight);
-        dto.setDieselExpense(diesel);
-        dto.setTollExpense(toll);
-        dto.setDriverExpense(driver);
-        dto.setOtherExpense(other);
-        dto.setTotalExpenses(totalExpenses);
-        dto.setBalance(balance);
-        dto.setStatus(balance > 0 ? "PAYABLE"
-                : balance < 0 ? "RECEIVABLE"
+//        dto.setTotalFreightEarned(totalFreight);
+//        dto.setDieselExpense(diesel);
+//        dto.setTollExpense(toll);
+//        dto.setDriverExpense(driver);
+//        dto.setOtherExpense(other);
+//        dto.setTotalExpenses(totalExpenses);
+        dto.setRate(totalRate);
+        dto.setTotalAdvance(totalAdvance);
+        dto.setAmountToReceive(amountToReceive);
+        dto.setStatus(amountToReceive > 0 ? "RECEIVABLE"
+                : amountToReceive < 0 ? "PAYABLE"
                 : "SETTLED");
 
-        // Trip breakdown
-        dto.setTrips(completedTrips.stream()
-                .map(this::mapToTripSummary)
-                .collect(Collectors.toList()));
+//        dto.setTrips(completedTrips.stream()
+//                .map(this::mapToTripSummary)
+//                .collect(Collectors.toList()));
 
         return dto;
     }
 
     private TripSummaryDto mapToTripSummary(Trip trip) {
-        int totalExpense = trip.getExpenseList().stream().mapToInt(Expense::getAmount).sum();
+        Long totalExpense = trip.getExpenseList().stream().mapToLong(Expense::getAmount).sum();
         return TripSummaryDto.builder()
                 .tripId(trip.getId())
                 .vehicleNumber(trip.getVehicle().getNumber())
@@ -160,9 +150,9 @@ public class OwnerService {
         OwnerBalanceDto dto = new OwnerBalanceDto();
         dto.setOwnerId(owner.getId());
         dto.setOwnerName(owner.getName());
-        dto.setBalance(0L);
+        dto.setAmountToReceive(0L);
         dto.setStatus("SETTLED");
-        dto.setTrips(new ArrayList<>());
+//        dto.setTrips(new ArrayList<>());
         return dto;
     }
 

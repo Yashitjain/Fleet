@@ -15,5 +15,5 @@ public class OwnerResponseDto {
     private List<String> vehicleNumbers; // list of truck numbers they own
     private Long totalFreightEarned;
     private Long totalExpenses;
-    private Long balance; // positive = you owe them, negative = they owe you
+    private Long amountToReceive; // positive = you owe them, negative = they owe you
 }

@@ -18,8 +18,9 @@ public class MiniTripResponseDto {
     private String destination;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Integer freightPrice;
-    private Integer totalExpense;
-    private int profit;
+    private Long freightPrice;
+    private Long totalExpense;
+    private Long ownerRate;
+    private Long profit;
     private Status status;
 }

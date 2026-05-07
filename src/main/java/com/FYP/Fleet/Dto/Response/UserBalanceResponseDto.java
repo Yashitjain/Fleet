@@ -18,6 +18,9 @@ public class UserBalanceResponseDto {
     private Long driverExpense;
     private Long otherExpense;
     private Long totalExpenses;
-    private Long balance;
+    private Long ownerRate;
+    private Long ownerAdvance;
+    private Long amountToPay;
+    private Long profit;
     private List<MiniTripResponseDto> trips;
 }

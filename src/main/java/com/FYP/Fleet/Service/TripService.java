@@ -48,6 +48,8 @@ public class TripService {
                 .startDate(tripRequestDto.getStartDate())
                 .endDate(tripRequestDto.getEndDate())
                 .status(Status.ACTIVE)
+                .ownerRate(tripRequestDto.getOwnerRate())
+                .ownerAdvance(tripRequestDto.getOwnerAdvance())
                 .build();
 
         trip = tripRepository.save(trip);
@@ -71,15 +73,16 @@ public class TripService {
     public TripSummaryResponseDto getTripSummaryById(long tripId){
         Trip trip = getTripById(tripId);
 
-        int freightPrice = trip.getFreightPrice();
+        Long freightPrice = trip.getFreightPrice();
 
-        int dieselExpense = getExpenseByCategory(ExpenseType.DIESEL, trip);
-        int tollExpense = getExpenseByCategory(ExpenseType.TOLL, trip);
-        int driverExpense = getExpenseByCategory(ExpenseType.DRIVER, trip);
-        int otherExpense = getExpenseByCategory(ExpenseType.OTHER, trip);
-        int totalExpense = dieselExpense + tollExpense + driverExpense + otherExpense;
+        Long dieselExpense = getExpenseByCategory(ExpenseType.DIESEL, trip);
+        Long tollExpense = getExpenseByCategory(ExpenseType.TOLL, trip);
+        Long driverExpense = getExpenseByCategory(ExpenseType.DRIVER, trip);
+        Long otherExpense = getExpenseByCategory(ExpenseType.OTHER, trip);
+        Long ownerRate = trip.getOwnerRate();
+        Long totalExpense = dieselExpense + tollExpense + driverExpense + otherExpense;
 
-        int profit = freightPrice - totalExpense;
+        Long profit = freightPrice - totalExpense - ownerRate;
         return TripSummaryResponseDto.builder()
                 .freightPrice(freightPrice)
                 .dieselExpense(dieselExpense)
@@ -88,6 +91,7 @@ public class TripService {
                 .otherExpense(otherExpense)
                 .totalExpense(totalExpense)
                 .profit(profit)
+                .ownerRate(ownerRate)
                 .build();
     }
 
@@ -96,23 +100,23 @@ public class TripService {
                 ()-> new RuntimeException("Trip Id Invalid"));
     }
 
-    public int getTotalExpenseOfTrip(Trip trip){
-        int dieselExpense = getExpenseByCategory(ExpenseType.DIESEL, trip);
-        int tollExpense = getExpenseByCategory(ExpenseType.TOLL, trip);
-        int driverExpense = getExpenseByCategory(ExpenseType.DRIVER, trip);
-        int otherExpense = getExpenseByCategory(ExpenseType.OTHER, trip);
+    public Long getTotalExpenseOfTrip(Trip trip){
+        Long dieselExpense = getExpenseByCategory(ExpenseType.DIESEL, trip);
+        Long tollExpense = getExpenseByCategory(ExpenseType.TOLL, trip);
+        Long driverExpense = getExpenseByCategory(ExpenseType.DRIVER, trip);
+        Long otherExpense = getExpenseByCategory(ExpenseType.OTHER, trip);
 
         return dieselExpense + tollExpense + driverExpense + otherExpense;
     }
 
-    public int getTotalProfitOfTrip(Trip trip){
-        int freightPrice = trip.getFreightPrice();
-        int totalExpense = getTotalExpenseOfTrip(trip);
-        return freightPrice - totalExpense;
+    public Long getTotalProfitOfTrip(Trip trip){
+        Long freightPrice = trip.getFreightPrice();
+        Long totalExpense = getTotalExpenseOfTrip(trip);
+        return freightPrice - totalExpense - trip.getOwnerRate();
     }
 
-    public int getExpenseByCategory(ExpenseType expenseType, Trip trip){
-        return trip.getExpenseList().stream().filter(t -> t.getExpenseType().equals(expenseType)).mapToInt(Expense::getAmount).sum();
+    public Long getExpenseByCategory(ExpenseType expenseType, Trip trip){
+        return trip.getExpenseList().stream().filter(t -> t.getExpenseType().equals(expenseType)).mapToLong(Expense::getAmount).sum();
     }
 
 
@@ -136,6 +140,7 @@ public class TripService {
                 .endDate(trip.getEndDate())
                 .expenseList(trip.getExpenseList())
                 .totalExpense(getTotalExpenseOfTrip(trip))
+                .ownerRate(trip.getOwnerRate())
                 .profit(getTotalProfitOfTrip(trip))
                 .status(trip.getStatus())
                 .build();
@@ -157,6 +162,7 @@ public class TripService {
                 .totalExpense(getTotalExpenseOfTrip(trip))
                 .status(trip.getStatus())
                 .profit(getTotalProfitOfTrip(trip))
+                .ownerRate(trip.getOwnerRate())
                 .build();
     }
 
@@ -180,5 +186,9 @@ public class TripService {
 
     public List<Trip> getCompletedTripsByUserId(Long userId) {
         return tripRepository.findCompletedTripsByUserId(userId);
+    }
+
+    public List<Trip> getCompletedTripsByOwnerIdAndUserId(Long ownerId, Long userId) {
+        return tripRepository.getCompletedTripsByOwnerIdAndUserId(ownerId, userId);
     }
 }

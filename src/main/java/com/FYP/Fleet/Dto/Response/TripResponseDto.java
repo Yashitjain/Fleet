@@ -22,12 +22,13 @@ public class TripResponseDto {
     private String userName;
     private String source;
     private String destination;
-    private Integer freightPrice;
+    private Long freightPrice;
     private LocalDate startDate;
     private LocalDate endDate;
     private Status status;
-    private Integer totalExpense;
-    private Integer profit;
+    private Long totalExpense;
+    private Long ownerRate;
+    private Long profit;
     @Builder.Default
     private List<Expense> expenseList = new ArrayList<>();
 }

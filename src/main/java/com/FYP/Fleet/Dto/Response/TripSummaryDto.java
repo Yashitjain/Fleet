@@ -18,8 +18,8 @@ public class TripSummaryDto {
     private String destination;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int freightPrice;
-    private int totalExpense;
-    private int profit;
+    private Long freightPrice;
+    private Long totalExpense;
+    private Long profit;
     private Status status;
 }

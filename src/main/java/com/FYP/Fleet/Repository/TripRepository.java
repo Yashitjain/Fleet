@@ -27,4 +27,14 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
         AND t.status = com.FYP.Fleet.Enums.Status.COMPLETED
    \s""")
     List<Trip> findCompletedTripsByUserId(@Param("userId")Long userId);
+
+    @Query("""
+        SELECT t FROM Trip t\s
+        JOIN Vehicle v\s
+        ON v.id = t.vehicle.id\s
+        WHERE t.user.id = :userId\s
+        AND v.owner.id = :ownerId\s
+        AND t.status = com.FYP.Fleet.Enums.Status.COMPLETED
+   \s""")
+    List<Trip> getCompletedTripsByOwnerIdAndUserId(@Param("ownerId") Long ownerId, @Param("userId") Long userId);
 }
