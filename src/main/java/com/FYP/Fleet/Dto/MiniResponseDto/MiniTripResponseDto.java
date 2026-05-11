@@ -12,14 +12,15 @@ import java.time.LocalDate;
 @Setter
 public class MiniTripResponseDto {
     private Long id;
-//    private String vehicleNumber;
-//    private long driverId;
+    private String vehicleNumber;
+    private String driverName;
     private String source;
     private String destination;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Integer freightPrice;
-    private Integer totalExpense;
-    private int profit;
+    private Long freightPrice;
+    private Long totalExpense;
+    private Long ownerRate;
+    private Long profit;
     private Status status;
 }

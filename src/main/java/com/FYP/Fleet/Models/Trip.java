@@ -53,7 +53,7 @@ public class Trip {
     private String destination;
 
     @NotNull
-    private Integer freightPrice;
+    private Long freightPrice;
 
     @NotNull
     private LocalDate startDate;
@@ -64,6 +64,16 @@ public class Trip {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private Status status;
+
+    @Column(name = "owner_rate")
+    private Long ownerRate;
+
+    @Column(name = "owner_advance")
+    private Long ownerAdvance;
+
+    @Column(name = "settled")
+    @Builder.Default
+    private Boolean settled = false;
 
     @OneToMany(mappedBy = "trip")
     @Builder.Default

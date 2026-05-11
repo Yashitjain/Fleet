@@ -8,11 +8,12 @@ import lombok.*;
 @Getter
 @Setter
 public class TripSummaryResponseDto {
-    private int freightPrice;
-    private int dieselExpense;
-    private int tollExpense;
-    private int driverExpense;
-    private int otherExpense;
-    private int totalExpense;
-    private int profit;
+    private Long freightPrice;
+    private Long dieselExpense;
+    private Long tollExpense;
+    private Long driverExpense;
+    private Long otherExpense;
+    private Long totalExpense;
+    private Long ownerRate;
+    private Long profit;
 }

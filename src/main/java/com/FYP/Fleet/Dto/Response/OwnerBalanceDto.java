@@ -13,13 +13,9 @@ public class OwnerBalanceDto {
     private Long ownerId;
     private String ownerName;
     private String ownerPhone;
-    private Long totalFreightEarned;
-    private Long dieselExpense;
-    private Long tollExpense;
-    private Long driverExpense;
-    private Long otherExpense;
-    private Long totalExpenses;
-    private Long balance;
+    private Long totalPay;
+    private Long totalAdvance;
+    private Long amountToPay;
     private String status; // PAYABLE, RECEIVABLE, SETTLED
-    private List<TripSummaryDto> trips;
+    private List<OwnerBalanceTripSummaryResponseDto> trips;
 }

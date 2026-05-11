@@ -34,9 +34,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
     }
 
-    @GetMapping("/balance")
-    public ResponseEntity<UserBalanceResponseDto> getBalanceOfUser(@AuthenticationPrincipal SecurityUser securityUser){
-        UserBalanceResponseDto balance = userService.getBalance(securityUser.getId());
+    @GetMapping("/dashboard")
+    public ResponseEntity<UserBalanceResponseDto> getDashboardStatOfUser(@AuthenticationPrincipal SecurityUser securityUser){
+        UserBalanceResponseDto balance = userService.getDashboardStats(securityUser.getId());
         return ResponseEntity.status(HttpStatus.OK).body(balance);
     }
 }

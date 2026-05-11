@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
@@ -27,4 +29,32 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
         AND t.status = com.FYP.Fleet.Enums.Status.COMPLETED
    \s""")
     List<Trip> findCompletedTripsByUserId(@Param("userId")Long userId);
+
+    @Query("""
+        SELECT t FROM Trip t\s
+        JOIN Vehicle v\s
+        ON v.id = t.vehicle.id\s
+        WHERE t.user.id = :userId\s
+        AND v.owner.id = :ownerId\s
+        AND t.status = com.FYP.Fleet.Enums.Status.COMPLETED
+   \s""")
+    List<Trip> getCompletedTripsByOwnerIdAndUserId(@Param("ownerId") Long ownerId, @Param("userId") Long userId);
+
+    List<Trip> findByUserId(Long userId);
+
+    @Query("""
+            select t from Trip t\s
+            where t.status = com.FYP.Fleet.Enums.Status.ACTIVE\s
+            AND t.user.id = :userId\s
+            """)
+    List<Trip> findActiveTripsByUserId(@Param("userID") Long userId);
+
+    @Query("""
+            select t from Trip t\s
+            where t.vehicle.owner.id = :ownerId\s
+            and t.user.id = :userId\s
+            """)
+    List<Trip> getTripsByUserIdAndOwnerId(@Param("userId")Long userId, @Param("ownerId") Long ownerId);
+
+    Optional<Trip> findByIdAndUserId(long tripId, long userId);
 }

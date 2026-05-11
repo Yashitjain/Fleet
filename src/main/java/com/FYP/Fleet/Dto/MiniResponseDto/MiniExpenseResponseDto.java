@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 public class MiniExpenseResponseDto {
     private long expenseId;
-    private int amount;
+    private Long amount;
     private LocalDate date;
     private String note;
     private ExpenseType expenseType;

@@ -56,30 +56,52 @@ public class UserService {
                 .build();
     }
 
-    public UserBalanceResponseDto getBalance(Long userId) {
-        List<Trip> tripList = tripService.getCompletedTripsByUserId(userId);
-        List<MiniTripResponseDto> miniTripResponseDos = tripList.stream().map(tripService::getMiniTripResponse).toList();
+    public UserBalanceResponseDto getDashboardStats(Long userId) {
+        List<Trip> allTrips = tripService.getTripByUserId(userId);
 
-        Long totalFreightPrice = tripList.stream().mapToLong(Trip::getFreightPrice).sum();
-        Long dieselExpense = tripList.stream().mapToLong(t -> sumByType(t.getExpenseList(), ExpenseType.DIESEL)).sum();
-        Long tollExpense = tripList.stream().mapToLong(t -> sumByType(t.getExpenseList(), ExpenseType.TOLL)).sum();
-        Long driverExpense = tripList.stream().mapToLong(t -> sumByType(t.getExpenseList(), ExpenseType.DRIVER)).sum();
-        Long otherExpense = tripList.stream().mapToLong(t -> sumByType(t.getExpenseList(), ExpenseType.OTHER)).sum();
-        Long totalExpense = dieselExpense + tollExpense + driverExpense + otherExpense;
-        Long balance = totalFreightPrice - totalExpense;
+        // Split by status
+        List<Trip> completedTrips = allTrips.stream().filter(t -> t.getStatus() == Status.COMPLETED).toList();
+        List<Trip> activeTrips = allTrips.stream().filter(t -> t.getStatus() == Status.ACTIVE).toList();
+
+        // --- FINANCIALS: COMPLETED (Finalized) ---
+        Long completedFreight = completedTrips.stream().mapToLong(t -> nvl(t.getFreightPrice())).sum();
+        Long completedOwnerRate = completedTrips.stream().mapToLong(t -> nvl(t.getOwnerRate())).sum();
+        Long completedExpenses = sumAllExpenses(completedTrips);
+        Long bookedProfit = completedFreight - completedExpenses - completedOwnerRate;
+
+        // --- FINANCIALS: ACTIVE (Estimated) ---
+        Long activeFreight = activeTrips.stream().mapToLong(t -> nvl(t.getFreightPrice())).sum();
+        Long activeOwnerRate = activeTrips.stream().mapToLong(t -> nvl(t.getOwnerRate())).sum();
+        Long activeExpenses = sumAllExpenses(activeTrips);
+        // Estimated Profit = What we expect minus what we've already spent
+        Long estimatedProfit = activeFreight - activeExpenses - activeOwnerRate;
+
+        // --- OWNER SETTLEMENT (Crucial for Fleet Management) ---
+        // Amount to pay should include ALL trips where money is still owed
+        Long totalOwnerRate = allTrips.stream().mapToLong(t -> nvl(t.getOwnerRate())).sum();
+        Long totalOwnerAdvance = allTrips.stream().mapToLong(t -> nvl(t.getOwnerAdvance())).sum();
+        Long totalAmountToPay = totalOwnerRate - totalOwnerAdvance;
 
         return UserBalanceResponseDto.builder()
-                .totalTrips(tripList.size())
-                .totalFreightEarned(totalFreightPrice)
-                .dieselExpense(dieselExpense)
-                .tollExpense(tollExpense)
-                .driverExpense(driverExpense)
-                .otherExpense(otherExpense)
-                .totalExpenses(totalExpense)
-                .balance(balance)
-                .trips(miniTripResponseDos)
+                .totalActiveTrips(activeTrips.size())
+                .totalTrips(allTrips.size())
+                .totalFreightEarned(completedFreight + activeFreight) // Total Booked Pipeline
+                .bookedProfit(bookedProfit)       // Real money saved
+                .estimatedProfit(estimatedProfit) // Money on the road
+//                .amountToPay(totalAmountToPay)    // Total debt to truck owners
                 .build();
+    }
 
+    // Helper to sum all expenses in one pass
+    private Long sumAllExpenses(List<Trip> trips) {
+        return trips.stream()
+                .flatMap(t -> t.getExpenseList().stream())
+                .mapToLong(e -> nvl(e.getAmount()))
+                .sum();
+    }
+
+    private long nvl(Long val) {
+        return val == null ? 0L : val;
     }
 
     private Long sumByType(List<Expense> expenses, ExpenseType type) {
