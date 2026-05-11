@@ -16,7 +16,7 @@ public class ExpenseResponseDto {
     private long driverId;
     private long userId;
     private String userName;
-    private int amount;
+    private Long amount;
     private LocalDate date;
     private String source;
     private String destination;

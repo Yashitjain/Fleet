@@ -1,11 +1,10 @@
 package com.FYP.Fleet.Controllers;
 
 import com.FYP.Fleet.Dto.Request.DriverRequestDto;
+import com.FYP.Fleet.Dto.Response.DriverIdPairResponseDto;
 import com.FYP.Fleet.Dto.Response.DriverResponseDto;
-import com.FYP.Fleet.Models.Driver;
 import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Service.DriverService;
-import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +40,11 @@ public class DriverController {
     public ResponseEntity<DriverResponseDto> getDriverById(@PathVariable long driverId){
         DriverResponseDto driver = driverService.getDriverResponseById(driverId);
         return ResponseEntity.status(HttpStatus.OK).body(driver);
+    }
+
+    @GetMapping("/drivers")
+    public ResponseEntity<List<DriverIdPairResponseDto>> getDriverPairId(@AuthenticationPrincipal SecurityUser securityUser){
+        List<DriverIdPairResponseDto> responses = driverService.getDriverIdPairResponse(securityUser.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(responses);
     }
 }

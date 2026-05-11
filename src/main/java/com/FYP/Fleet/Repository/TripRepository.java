@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -37,4 +38,13 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
         AND t.status = com.FYP.Fleet.Enums.Status.COMPLETED
    \s""")
     List<Trip> getCompletedTripsByOwnerIdAndUserId(@Param("ownerId") Long ownerId, @Param("userId") Long userId);
+
+    List<Trip> findByUserId(Long userId);
+
+    @Query("""
+            select t from Trip t\s
+            where t.status = com.FYP.Fleet.Enums.Status.ACTIVE\s
+            AND t.user.id = :userId\s
+            """)
+    List<Trip> findActiveTripsByUserId(@Param("userID") Long userId);
 }

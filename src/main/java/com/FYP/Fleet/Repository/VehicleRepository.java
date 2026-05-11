@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     Optional<Vehicle> findByNumber(String number);
+
+    List<Vehicle> findByUserId(Long id);
 }

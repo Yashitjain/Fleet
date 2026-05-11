@@ -12,8 +12,8 @@ import java.time.LocalDate;
 @Setter
 public class MiniTripResponseDto {
     private Long id;
-//    private String vehicleNumber;
-//    private long driverId;
+    private String vehicleNumber;
+    private String driverName;
     private String source;
     private String destination;
     private LocalDate startDate;

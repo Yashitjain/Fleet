@@ -1,6 +1,7 @@
 package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.Request.VehicleRequestDto;
+import com.FYP.Fleet.Dto.Response.VehicleNumberPairResponseDto;
 import com.FYP.Fleet.Dto.Response.VehicleResponseDto;
 import com.FYP.Fleet.Models.Owner;
 import com.FYP.Fleet.Models.Trip;
@@ -93,5 +94,15 @@ public class VehicleService {
                 .tripList(vehicle.getTripList().stream().map(Trip::getId).toList())
                 .ownerId(vehicle.getOwner().getId())
                 .build();
+    }
+
+    public List<VehicleNumberPairResponseDto> getVehicleNumberPairResponse(Long id) {
+        List<Vehicle> vehicleList = vehicleRepository.findByUserId(id);
+        return vehicleList.stream().map(v->
+                VehicleNumberPairResponseDto
+                        .builder()
+                        .vehicleId(v.getId())
+                        .vehicleNumber(v.getNumber())
+                        .build()).toList();
     }
 }

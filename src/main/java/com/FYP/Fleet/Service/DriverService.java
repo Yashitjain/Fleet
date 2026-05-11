@@ -1,6 +1,7 @@
 package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.Request.DriverRequestDto;
+import com.FYP.Fleet.Dto.Response.DriverIdPairResponseDto;
 import com.FYP.Fleet.Dto.Response.DriverResponseDto;
 import com.FYP.Fleet.Models.Driver;
 import com.FYP.Fleet.Models.Trip;
@@ -66,4 +67,12 @@ public class DriverService {
                 .build();
     }
 
+    public List<DriverIdPairResponseDto> getDriverIdPairResponse(Long id) {
+        List<Driver> driverList = driverRepository.findByUserId(id);
+        return driverList.stream().map(d -> DriverIdPairResponseDto
+                .builder()
+                .driverName(d.getName())
+                .driverId(d.getId())
+                .build()).toList();
+    }
 }

@@ -1,6 +1,7 @@
 package com.FYP.Fleet.Controllers;
 
 import com.FYP.Fleet.Dto.Request.VehicleRequestDto;
+import com.FYP.Fleet.Dto.Response.VehicleNumberPairResponseDto;
 import com.FYP.Fleet.Dto.Response.VehicleResponseDto;
 import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Models.Vehicle;
@@ -51,5 +52,11 @@ public class VehicleController {
     public ResponseEntity<VehicleResponseDto> updateVehicle(@PathVariable long vehicleId,@RequestBody VehicleRequestDto vehicleRequestDto) throws UserPrincipalNotFoundException {
         VehicleResponseDto responseDto = vehicleService.updateVehicle(vehicleId, vehicleRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
+    @GetMapping("/vehicles")
+    public ResponseEntity<List<VehicleNumberPairResponseDto>> vehicleNumberPairResponse(@AuthenticationPrincipal SecurityUser securityUser){
+        List<VehicleNumberPairResponseDto> vehicleNumberPairResponseDtoList = vehicleService.getVehicleNumberPairResponse(securityUser.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleNumberPairResponseDtoList);
     }
 }

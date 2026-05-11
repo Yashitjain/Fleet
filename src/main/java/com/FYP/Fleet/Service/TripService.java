@@ -129,6 +129,7 @@ public class TripService {
     private TripResponseDto getTripResponse(Trip trip){
         return TripResponseDto.builder()
                 .id(trip.getId())
+                .driverName(trip.getDriver().getName())
                 .vehicleNumber(trip.getVehicle().getNumber())
                 .driverId(trip.getDriver().getId())
                 .userId(trip.getUser().getId())
@@ -154,6 +155,8 @@ public class TripService {
     public MiniTripResponseDto getMiniTripResponse(Trip trip){
         return MiniTripResponseDto.builder()
                 .id(trip.getId())
+                .driverName(trip.getDriver().getName())
+                .vehicleNumber(trip.getVehicle().getNumber())
                 .source(trip.getSource())
                 .destination(trip.getDestination())
                 .startDate(trip.getStartDate())
@@ -190,5 +193,17 @@ public class TripService {
 
     public List<Trip> getCompletedTripsByOwnerIdAndUserId(Long ownerId, Long userId) {
         return tripRepository.getCompletedTripsByOwnerIdAndUserId(ownerId, userId);
+    }
+
+    public Integer totalActiveTripsCount(Long userId) {
+        return tripRepository.findByUserId(userId).size();
+    }
+
+    public List<Trip> getTripByUserId(Long userId){
+        return tripRepository.findByUserId(userId);
+    }
+
+    public List<Trip> getActiveTripsByUserId(Long userId){
+        return tripRepository.findActiveTripsByUserId(userId);
     }
 }

@@ -20,6 +20,6 @@ public class ExpenseRequestDto {
     @NotNull
     private LocalDate date;
     @NotNull
-    private Integer amount;
+    private Long amount;
 
 }
