@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
@@ -47,4 +48,13 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
             AND t.user.id = :userId\s
             """)
     List<Trip> findActiveTripsByUserId(@Param("userID") Long userId);
+
+    @Query("""
+            select t from Trip t\s
+            where t.vehicle.owner.id = :ownerId\s
+            and t.user.id = :userId\s
+            """)
+    List<Trip> getTripsByUserIdAndOwnerId(@Param("userId")Long userId, @Param("ownerId") Long ownerId);
+
+    Optional<Trip> findByIdAndUserId(long tripId, long userId);
 }

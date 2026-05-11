@@ -187,8 +187,8 @@ public class TripService {
         return tripRepository.findByIdIn(tripIds);
     }
 
-    public List<Trip> getCompletedTripsByUserId(Long userId) {
-        return tripRepository.findCompletedTripsByUserId(userId);
+    public List<Trip> getTripsByUserIdAndOwnerId(Long userId, Long ownerId) {
+        return tripRepository.getTripsByUserIdAndOwnerId(userId, ownerId);
     }
 
     public List<Trip> getCompletedTripsByOwnerIdAndUserId(Long ownerId, Long userId) {
@@ -205,5 +205,15 @@ public class TripService {
 
     public List<Trip> getActiveTripsByUserId(Long userId){
         return tripRepository.findActiveTripsByUserId(userId);
+    }
+
+    public void settleTripPayment(long tripId, long userId) {
+        Trip trip = getTripByIdAndUserId(tripId, userId);
+        trip.setSettled(true);
+        tripRepository.save(trip);
+    }
+
+    public Trip getTripByIdAndUserId(long tripId, long userId){
+        return tripRepository.findByIdAndUserId(tripId, userId).orElseThrow(() -> new RuntimeException("Trip Not Found"));
     }
 }

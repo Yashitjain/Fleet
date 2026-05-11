@@ -2,6 +2,7 @@ package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.Request.OwnerRequestDto;
 import com.FYP.Fleet.Dto.Response.OwnerBalanceDto;
+import com.FYP.Fleet.Dto.Response.OwnerBalanceTripSummaryResponseDto;
 import com.FYP.Fleet.Dto.Response.OwnerResponseDto;
 import com.FYP.Fleet.Dto.Response.TripSummaryDto;
 import com.FYP.Fleet.Enums.ExpenseType;
@@ -62,50 +63,29 @@ public class OwnerService {
         Owner owner = ownerRepository.findByIdAndUserId(ownerId, userId)
                 .orElseThrow(() -> new RuntimeException("Owner not found"));
 
+        List<Trip> trips = tripService
+                .getTripsByUserIdAndOwnerId(userId, ownerId);
 
+        List<Trip> unSettledTrips = trips.stream().filter(t -> !t.getSettled()).toList();
 
-        // Get all COMPLETED trips for owner's vehicles
-        List<Trip> completedTrips = tripService
-                .getCompletedTripsByOwnerIdAndUserId(ownerId, userId);
-
-//        // Calculate totals
-//        long totalFreight = completedTrips.stream()
-//                .mapToLong(Trip::getFreightPrice)
-//                .sum();
-//
-//        List<Expense> expenses = completedTrips.stream()
-//                .flatMap(trip -> trip.getExpenseList().stream())
-//                .toList();
-//
-//        long diesel = sumByType(expenses, ExpenseType.DIESEL);
-//        long toll   = sumByType(expenses, ExpenseType.TOLL);
-//        long driver = sumByType(expenses, ExpenseType.DRIVER);
-//        long other  = sumByType(expenses, ExpenseType.OTHER);
-//        long totalExpenses = diesel + toll + driver + other;
-        long totalAdvance = completedTrips.stream().mapToLong(Trip::getOwnerAdvance).sum();
-        long totalRate = completedTrips.stream().mapToLong(Trip::getOwnerRate).sum();
-        long amountToReceive = totalRate - totalAdvance;
+        long totalAdvance = unSettledTrips.stream().mapToLong(Trip::getOwnerAdvance).sum();
+        long totalPay = trips.stream().mapToLong(Trip::getOwnerRate).sum();
+        long amountToReceive = totalPay - totalAdvance;
 
         OwnerBalanceDto dto = new OwnerBalanceDto();
         dto.setOwnerId(owner.getId());
         dto.setOwnerName(owner.getName());
         dto.setOwnerPhone(owner.getPhone());
-//        dto.setTotalFreightEarned(totalFreight);
-//        dto.setDieselExpense(diesel);
-//        dto.setTollExpense(toll);
-//        dto.setDriverExpense(driver);
-//        dto.setOtherExpense(other);
-//        dto.setTotalExpenses(totalExpenses);
-        dto.setRate(totalRate);
+        dto.setTotalPay(totalPay);
         dto.setTotalAdvance(totalAdvance);
-        dto.setAmountToReceive(amountToReceive);
+        dto.setAmountToPay(amountToReceive);
         dto.setStatus(amountToReceive > 0 ? "RECEIVABLE"
                 : amountToReceive < 0 ? "PAYABLE"
                 : "SETTLED");
 
-//        dto.setTrips(completedTrips.stream()
-//                .map(this::mapToTripSummary)
-//                .collect(Collectors.toList()));
+        dto.setTrips(trips.stream()
+                .map(this::mapToOwnerBalanceTripSummaryResponseDto)
+                .collect(Collectors.toList()));
 
         return dto;
     }
@@ -146,14 +126,16 @@ public class OwnerService {
         return dto;
     }
 
-    private OwnerBalanceDto emptyBalance(Owner owner) {
-        OwnerBalanceDto dto = new OwnerBalanceDto();
-        dto.setOwnerId(owner.getId());
-        dto.setOwnerName(owner.getName());
-        dto.setAmountToReceive(0L);
-        dto.setStatus("SETTLED");
-//        dto.setTrips(new ArrayList<>());
-        return dto;
+    private OwnerBalanceTripSummaryResponseDto mapToOwnerBalanceTripSummaryResponseDto(Trip trip) {
+        return OwnerBalanceTripSummaryResponseDto.builder()
+                .tripId(trip.getId())
+                .rate(trip.getOwnerRate())
+                .source(trip.getSource())
+                .destination(trip.getDestination())
+                .settled(trip.getSettled())
+                .vehicleNumber(trip.getVehicle().getNumber())
+                .advance(trip.getOwnerAdvance())
+                .build();
     }
 
     public Owner getOwnerById(Long ownerId) throws UserPrincipalNotFoundException {

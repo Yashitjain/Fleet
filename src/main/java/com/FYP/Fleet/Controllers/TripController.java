@@ -60,4 +60,10 @@ public class TripController {
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
+    @PatchMapping("/{tripId}/settle")
+    public ResponseEntity.BodyBuilder settleTripPayment(@PathVariable long tripId, @AuthenticationPrincipal SecurityUser securityUser){
+        tripService.settleTripPayment(tripId, securityUser.getId());
+        return ResponseEntity.status(HttpStatus.OK);
+    }
+
 }

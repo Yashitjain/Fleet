@@ -71,6 +71,10 @@ public class Trip {
     @Column(name = "owner_advance")
     private Long ownerAdvance;
 
+    @Column(name = "settled")
+    @Builder.Default
+    private Boolean settled = false;
+
     @OneToMany(mappedBy = "trip")
     @Builder.Default
     private List<Expense> expenseList = new ArrayList<>();
