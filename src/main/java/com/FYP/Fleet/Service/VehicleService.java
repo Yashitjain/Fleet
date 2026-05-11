@@ -41,9 +41,11 @@ public class VehicleService {
 
         if(vehicleRequestDto.getOwnerId() != null){
             Owner owner = ownerService.getOwnerById(vehicleRequestDto.getOwnerId());
+            createVehicle.setOwner(owner);
         }
         createVehicle = vehicleRepository.save(createVehicle);
         user.getVehicleList().add(createVehicle);
+
         userRepository.save(user);
 
         return createVehicle;
@@ -82,9 +84,9 @@ public class VehicleService {
     }
 
 
-    public List<VehicleResponseDto> getAllVehicleOfOwner(Long userId) {
-        List<Vehicle> vehicleList = vehicleRepository.findAll();
-        return vehicleList.stream().filter(v -> v.getUser().getId().equals(userId)).map(this::getVehicleResponse).toList();
+    public List<VehicleResponseDto> getAllVehicleByUserId(Long userId) {
+        List<Vehicle> vehicleList = vehicleRepository.findByUserId(userId);
+        return vehicleList.stream().map(this::getVehicleResponse).toList();
     }
 
     private VehicleResponseDto getVehicleResponse(Vehicle vehicle){
