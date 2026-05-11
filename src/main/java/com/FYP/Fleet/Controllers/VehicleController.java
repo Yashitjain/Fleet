@@ -31,7 +31,7 @@ public class VehicleController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<VehicleResponseDto>> getAllVehicleOfOwner(@AuthenticationPrincipal SecurityUser securityUser){
+    public ResponseEntity<List<VehicleResponseDto>> getAllVehicleOfUser(@AuthenticationPrincipal SecurityUser securityUser){
         List<VehicleResponseDto> vehicleList = vehicleService.getAllVehicleOfOwner(securityUser.getId());
         return ResponseEntity.status(HttpStatus.OK).body(vehicleList);
     }
