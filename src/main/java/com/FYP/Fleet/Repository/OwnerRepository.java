@@ -1,8 +1,10 @@
 package com.FYP.Fleet.Repository;
 
 import com.FYP.Fleet.Models.Owner;
+import com.FYP.Fleet.Models.Transactions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,4 +26,5 @@ public interface OwnerRepository extends JpaRepository<Owner, Long> {
         WHERE o.id = :ownerId AND o.user.id = :userId
     """)
     Optional<Owner> findByIdAndUserId(Long ownerId, Long userId);
+
 }

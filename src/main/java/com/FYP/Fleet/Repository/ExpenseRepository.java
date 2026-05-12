@@ -15,7 +15,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     List<Expense> findByTripIdIn(List<Long> tripIds);
 
     @Query("""
-            select e from Expense\s
+            select e from Expense e\s
             where e.id = :expenseId\s
             and e.trip.user.id = :userId\s
             """)
