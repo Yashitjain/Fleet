@@ -210,6 +210,7 @@ public class TripService {
     public void settleTripPayment(long tripId, long userId) {
         Trip trip = getTripByIdAndUserId(tripId, userId);
         trip.setSettled(true);
+        trip.setOwnerAdvance(trip.getOwnerRate());
         tripRepository.save(trip);
     }
 

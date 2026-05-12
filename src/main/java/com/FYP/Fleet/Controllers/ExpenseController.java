@@ -2,11 +2,15 @@ package com.FYP.Fleet.Controllers;
 
 import com.FYP.Fleet.Dto.MiniResponseDto.MiniExpenseResponseDto;
 import com.FYP.Fleet.Dto.Request.ExpenseRequestDto;
+import com.FYP.Fleet.Dto.Request.UpdateExpenseRequestDto;
 import com.FYP.Fleet.Dto.Response.ExpenseResponseDto;
+import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Service.ExpenseService;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,6 +42,15 @@ public class ExpenseController {
     public ResponseEntity<List<MiniExpenseResponseDto>> getTripAllExpense(@PathVariable long tripId){
         List<MiniExpenseResponseDto> expenseList = expenseService.getTripAllExpense(tripId);
         return ResponseEntity.status(HttpStatus.OK).body(expenseList);
+    }
+
+    @PatchMapping("/trip/{expenseId}")
+    public ResponseEntity.BodyBuilder updateExpense(@PathVariable long expenseId,
+                                                    @AuthenticationPrincipal SecurityUser securityUser,
+                                                    @RequestBody UpdateExpenseRequestDto updateExpenseRequestDto
+    ) throws Exception {
+        expenseService.updateExpense(expenseId, securityUser.getId(), updateExpenseRequestDto);
+        return ResponseEntity.status(HttpStatus.OK);
     }
 
 }

@@ -69,18 +69,19 @@ public class OwnerService {
         List<Trip> unSettledTrips = trips.stream().filter(t -> !t.getSettled()).toList();
 
         long totalAdvance = unSettledTrips.stream().mapToLong(Trip::getOwnerAdvance).sum();
-        long totalPay = trips.stream().mapToLong(Trip::getOwnerRate).sum();
-        long amountToReceive = totalPay - totalAdvance;
+        long totalPay = unSettledTrips.stream().mapToLong(Trip::getOwnerRate).sum();
+        long revenue = trips.stream().mapToLong(Trip::getOwnerRate).sum();
+        long amountToPay = totalPay - totalAdvance;
 
         OwnerBalanceDto dto = new OwnerBalanceDto();
         dto.setOwnerId(owner.getId());
         dto.setOwnerName(owner.getName());
         dto.setOwnerPhone(owner.getPhone());
-        dto.setTotalPay(totalPay);
+        dto.setTotalPay(revenue);
         dto.setTotalAdvance(totalAdvance);
-        dto.setAmountToPay(amountToReceive);
-        dto.setStatus(amountToReceive > 0 ? "RECEIVABLE"
-                : amountToReceive < 0 ? "PAYABLE"
+        dto.setAmountToPay(amountToPay);
+        dto.setStatus(amountToPay > 0 ? "RECEIVABLE"
+                : amountToPay < 0 ? "PAYABLE"
                 : "SETTLED");
 
         dto.setTrips(trips.stream()
