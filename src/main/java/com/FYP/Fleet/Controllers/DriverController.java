@@ -1,7 +1,7 @@
 package com.FYP.Fleet.Controllers;
 
 import com.FYP.Fleet.Dto.Request.DriverRequestDto;
-import com.FYP.Fleet.Dto.Response.DriverIdPairResponseDto;
+import com.FYP.Fleet.Dto.MiniResponseDto.DriverIdPairResponseDto;
 import com.FYP.Fleet.Dto.Response.DriverResponseDto;
 import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Service.DriverService;

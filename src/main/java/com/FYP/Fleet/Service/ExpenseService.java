@@ -125,4 +125,9 @@ public class ExpenseService {
         return expenseRepository.findByIdAndUserId(expenseId, userId)
                 .orElseThrow(()-> new RuntimeException("Expense Not Found"));
     }
+
+    public void deleteExpenseByIdAndUserId(Long expenseId, Long userId) {
+        Expense expense = getExpenseByIdAndUserId(expenseId, userId);
+        expenseRepository.delete(expense);
+    }
 }

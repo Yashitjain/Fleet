@@ -14,5 +14,6 @@ public class VehicleResponseDto {
     private long id;
     private String vehicleNumber;
     private long ownerId;
+    private String ownerName;
     private List<Long> tripList;
 }
