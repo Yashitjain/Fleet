@@ -1,7 +1,7 @@
 package com.FYP.Fleet.Controllers;
 
 import com.FYP.Fleet.Dto.Request.VehicleRequestDto;
-import com.FYP.Fleet.Dto.Response.VehicleNumberPairResponseDto;
+import com.FYP.Fleet.Dto.MiniResponseDto.VehicleNumberPairResponseDto;
 import com.FYP.Fleet.Dto.Response.VehicleResponseDto;
 import com.FYP.Fleet.Models.SecurityUser;
 import com.FYP.Fleet.Models.Vehicle;

@@ -1,4 +1,4 @@
-package com.FYP.Fleet.Dto.Response;
+package com.FYP.Fleet.Dto.MiniResponseDto;
 
 import lombok.*;
 

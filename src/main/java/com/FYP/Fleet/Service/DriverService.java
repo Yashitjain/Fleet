@@ -1,12 +1,11 @@
 package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.Request.DriverRequestDto;
-import com.FYP.Fleet.Dto.Response.DriverIdPairResponseDto;
+import com.FYP.Fleet.Dto.MiniResponseDto.DriverIdPairResponseDto;
 import com.FYP.Fleet.Dto.Response.DriverResponseDto;
 import com.FYP.Fleet.Models.Driver;
 import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Models.User;
-import com.FYP.Fleet.Models.Vehicle;
 import com.FYP.Fleet.Repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,7 @@
 package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.Request.OwnerRequestDto;
-import com.FYP.Fleet.Dto.Response.OwnerBalanceDto;
-import com.FYP.Fleet.Dto.Response.OwnerBalanceTripSummaryResponseDto;
-import com.FYP.Fleet.Dto.Response.OwnerResponseDto;
-import com.FYP.Fleet.Dto.Response.TripSummaryDto;
+import com.FYP.Fleet.Dto.Response.*;
 import com.FYP.Fleet.Enums.ExpenseType;
 import com.FYP.Fleet.Models.*;
 import com.FYP.Fleet.Repository.OwnerRepository;
@@ -22,12 +19,14 @@ public class OwnerService {
     private final OwnerRepository ownerRepository;
     private final UserService userService;
     private final TripService tripService;
+    private final TransactionService transactionService;
 
     @Autowired
-    public OwnerService(OwnerRepository ownerRepository, UserService userService,@Lazy TripService tripService){
+    public OwnerService(OwnerRepository ownerRepository, UserService userService,@Lazy TripService tripService, TransactionService transactionService){
         this.ownerRepository = ownerRepository;
         this.userService = userService;
         this.tripService = tripService;
+        this.transactionService = transactionService;
     }
 
     public OwnerResponseDto createOwner(OwnerRequestDto request, Long userId) {
@@ -63,14 +62,15 @@ public class OwnerService {
         Owner owner = ownerRepository.findByIdAndUserId(ownerId, userId)
                 .orElseThrow(() -> new RuntimeException("Owner not found"));
 
+        List<TransactionResponseDto> transactionsList = transactionService.getTransactionByUserIdAndOwnerId(userId, ownerId);
         List<Trip> trips = tripService
                 .getTripsByUserIdAndOwnerId(userId, ownerId);
 
         List<Trip> unSettledTrips = trips.stream().filter(t -> !t.getSettled()).toList();
 
-        long totalAdvance = unSettledTrips.stream().mapToLong(Trip::getOwnerAdvance).sum();
+        long totalAdvance = transactionsList.stream().mapToLong(TransactionResponseDto::getAmount).sum();
         long totalPay = trips.stream().mapToLong(Trip::getOwnerRate).sum();
-        long amountToReceive = totalPay - totalAdvance;
+        long amountToPay = totalPay - totalAdvance;
 
         OwnerBalanceDto dto = new OwnerBalanceDto();
         dto.setOwnerId(owner.getId());
@@ -78,9 +78,9 @@ public class OwnerService {
         dto.setOwnerPhone(owner.getPhone());
         dto.setTotalPay(totalPay);
         dto.setTotalAdvance(totalAdvance);
-        dto.setAmountToPay(amountToReceive);
-        dto.setStatus(amountToReceive > 0 ? "RECEIVABLE"
-                : amountToReceive < 0 ? "PAYABLE"
+        dto.setAmountToPay(amountToPay);
+        dto.setStatus(amountToPay > 0 ? "RECEIVABLE"
+                : amountToPay < 0 ? "PAYABLE"
                 : "SETTLED");
 
         dto.setTrips(trips.stream()

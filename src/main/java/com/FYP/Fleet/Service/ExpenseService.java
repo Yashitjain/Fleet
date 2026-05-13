@@ -2,7 +2,9 @@ package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.MiniResponseDto.MiniExpenseResponseDto;
 import com.FYP.Fleet.Dto.Request.ExpenseRequestDto;
+import com.FYP.Fleet.Dto.Request.UpdateExpenseRequestDto;
 import com.FYP.Fleet.Dto.Response.ExpenseResponseDto;
+import com.FYP.Fleet.Enums.Status;
 import com.FYP.Fleet.Models.Expense;
 import com.FYP.Fleet.Models.Trip;
 import com.FYP.Fleet.Repository.ExpenseRepository;
@@ -103,5 +105,29 @@ public class ExpenseService {
 
     public List<Expense> getByTripIdIn(List<Long> tripIds) {
         return tripService.getByIdIn(tripIds);
+    }
+
+    public void updateExpense(long expenseId, Long userId, UpdateExpenseRequestDto updateExpenseRequestDto) throws Exception{
+        Expense expense = getExpenseByIdAndUserId(expenseId, userId);
+        Trip trip = expense.getTrip();
+        if(!trip.getStatus().equals(Status.ACTIVE)){
+            throw new RuntimeException("Only Active Trips Expenses Can Be Modify");
+        }
+        if(updateExpenseRequestDto.getExpenseType() != null) expense.setExpenseType(updateExpenseRequestDto.getExpenseType());
+        if(updateExpenseRequestDto.getAmount() != null) expense.setAmount(updateExpenseRequestDto.getAmount());
+        if(updateExpenseRequestDto.getDate() != null) expense.setDate(updateExpenseRequestDto.getDate());
+
+        expenseRepository.save(expense);
+
+    }
+
+    private Expense getExpenseByIdAndUserId(long expenseId, Long userId) {
+        return expenseRepository.findByIdAndUserId(expenseId, userId)
+                .orElseThrow(()-> new RuntimeException("Expense Not Found"));
+    }
+
+    public void deleteExpenseByIdAndUserId(Long expenseId, Long userId) {
+        Expense expense = getExpenseByIdAndUserId(expenseId, userId);
+        expenseRepository.delete(expense);
     }
 }

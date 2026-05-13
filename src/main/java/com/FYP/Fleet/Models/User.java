@@ -59,5 +59,8 @@ public class User {
     @JsonManagedReference
     private List<Trip> tripList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Transactions> transactionsList = new ArrayList<>();
 
 }

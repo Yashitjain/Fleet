@@ -1,15 +1,14 @@
 package com.FYP.Fleet.Models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "owner")
+//@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,4 +38,8 @@ public class Owner {
     // All trucks belonging to this owner
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Vehicle> vehicles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @Builder.Default
+    private List<Transactions> transactionsList = new ArrayList<>();
 }

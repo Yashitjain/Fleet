@@ -1,7 +1,7 @@
 package com.FYP.Fleet.Service;
 
 import com.FYP.Fleet.Dto.Request.VehicleRequestDto;
-import com.FYP.Fleet.Dto.Response.VehicleNumberPairResponseDto;
+import com.FYP.Fleet.Dto.MiniResponseDto.VehicleNumberPairResponseDto;
 import com.FYP.Fleet.Dto.Response.VehicleResponseDto;
 import com.FYP.Fleet.Models.Owner;
 import com.FYP.Fleet.Models.Trip;
@@ -95,6 +95,7 @@ public class VehicleService {
                 .vehicleNumber(vehicle.getNumber())
                 .tripList(vehicle.getTripList().stream().map(Trip::getId).toList())
                 .ownerId(vehicle.getOwner().getId())
+                .ownerName(vehicle.getOwner().getName())
                 .build();
     }
 
